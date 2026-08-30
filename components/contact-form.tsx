@@ -34,8 +34,8 @@ export function ContactForm() {
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
           access_key: WEB3FORMS_ACCESS_KEY,
-          subject: `Portfolio contact from ${data.get("name")}`,
-          from_name: "noble.dev contact form",
+          subject: `New enquiry from ${data.get("name")}`,
+          from_name: "Noverstorm website contact form",
           name: data.get("name"),
           email: data.get("email"),
           phone: data.get("phone"),
@@ -61,7 +61,7 @@ export function ContactForm() {
         <CheckCircle className="h-10 w-10 text-emerald-600" />
         <p className="font-semibold text-lg">Message sent!</p>
         <p className="text-sm text-muted-foreground">
-          Thanks for reaching out. I will get back to you within 1 to 2 business days.
+          Thanks for reaching out. We will get back to you within 1 to 2 business days.
         </p>
         <Button variant="outline" size="sm" onClick={() => setStatus("idle")}>
           Send another
@@ -104,7 +104,7 @@ export function ContactForm() {
         <Textarea
           id="message"
           name="message"
-          placeholder="Tell me about your project or role..."
+          placeholder="Tell us about your project..."
           required
           rows={5}
         />
@@ -112,7 +112,7 @@ export function ContactForm() {
       {status === "error" && (
         <div className="flex items-center gap-2 text-sm text-red-500">
           <AlertCircle className="h-4 w-4" />
-          Something went wrong. Please try again or email me directly.
+          Something went wrong. Please try again or email us directly.
         </div>
       )}
       <Button type="submit" disabled={status === "loading"}>

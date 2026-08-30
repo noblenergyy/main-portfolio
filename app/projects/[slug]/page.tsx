@@ -20,7 +20,7 @@ export async function generateMetadata({
   const cs = caseStudies.find((c) => c.slug === slug)
   if (!cs) return {}
   return {
-    title: `${cs.title} | Case Study | Noble Okorie Chibueze`,
+    title: `${cs.title} | Case Study | Noverstorm Tech Solutions`,
     description: cs.description,
   }
 }
@@ -40,7 +40,7 @@ export default async function CaseStudyPage({
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
           <Link href="/" className="flex items-center gap-2 text-sm hover:text-foreground">
             <ArrowLeft className="h-4 w-4" />
-            back to noble.dev
+            back to noverstorm
           </Link>
           <Button asChild size="sm" variant="outline">
             <a href={cs.demo} target="_blank" rel="noreferrer">

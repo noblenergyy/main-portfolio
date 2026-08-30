@@ -20,24 +20,25 @@ const PROJECT_LINKS: Record<string, string> = {
 const HELP: string[] = [
   "available commands:",
   "  help              show this list",
-  "  whoami            about Noble",
+  "  whoami            about Noverstorm",
+  "  founder           who runs this studio",
   "  projects          list featured projects",
   "  open <name>       open a project or profile (e.g. open papertrail)",
   "  skills            list the stack",
-  "  contact           how to reach me",
+  "  contact           how to reach us",
   "  theme             toggle dark / light",
   "  stars [on|off]    toggle the constellation on the hero",
   "  color <name>      switch accent (ember, emerald, violet, cyan, gold, white)",
   "  price             what does a project cost?",
   "  clear             clear the screen",
   "  exit              close the terminal",
-  "  sudo hire-noble   you know you want to",
+  "  sudo hire-us      you know you want to",
 ]
 
 export function Terminal() {
   const [open, setOpen] = useState(false)
   const [lines, setLines] = useState<Line[]>([
-    { kind: "ok", text: "noble.dev terminal v1.0.0" },
+    { kind: "ok", text: "noverstorm terminal v1.0.0" },
     { kind: "out", text: "type 'help' to get started." },
   ])
   const [input, setInput] = useState("")
@@ -72,10 +73,20 @@ export function Terminal() {
         case "whoami":
         case "about":
           out(
-            "Noble Okorie Chibueze",
-            "full stack developer · remote, worldwide",
+            "Noverstorm Tech Solutions Ltd",
+            "software development studio · remote, worldwide",
             "React, Next.js, TypeScript on the front. Node.js, Django, PostgreSQL behind.",
-            "status: available for freelance",
+            "status: available for new projects",
+            "",
+            "try: founder",
+          )
+          break
+        case "founder":
+          out(
+            "Noble Okorie Chibueze",
+            "Founder & Lead Engineer",
+            "Leads every engagement from architecture through to deployment.",
+            "github.com/noblenergyy",
           )
           break
         case "projects":
@@ -148,7 +159,7 @@ export function Terminal() {
           setOpen(false)
           break
         case "sudo":
-          if (arg.includes("hire-noble")) {
+          if (arg.includes("hire-us") || arg.includes("hire-noverstorm") || arg.includes("hire-noble")) {
             ok("[sudo] password for guest: ********", "ACCESS GRANTED.", "redirecting to contact form...")
             window.setTimeout(() => {
               document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
@@ -248,7 +259,7 @@ export function Terminal() {
             <span aria-hidden="true" className="h-2.5 w-2.5 rounded-full bg-red-400" />
             <span aria-hidden="true" className="h-2.5 w-2.5 rounded-full bg-yellow-400" />
             <span aria-hidden="true" className="h-2.5 w-2.5 rounded-full bg-green-400" />
-            <span className="flex-1 text-center text-[11px] text-neutral-500">noble@dev: ~</span>
+            <span className="flex-1 text-center text-[11px] text-neutral-500">guest@noverstorm: ~</span>
           </div>
           <div ref={bodyRef} className="h-72 overflow-y-auto p-3 leading-relaxed">
             {lines.map((line, i) => (

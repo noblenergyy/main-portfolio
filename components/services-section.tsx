@@ -25,7 +25,7 @@ const services = [
 
 const steps = [
   { n: "01", title: "Scope", body: "We define goals, features, and a timeline. You get a clear spec and a fixed picture of what ships." },
-  { n: "02", title: "Build", body: "I build in weekly increments with live previews, so you watch it come together and steer early." },
+  { n: "02", title: "Build", body: "We build in weekly increments with live previews, so you watch it come together and steer early." },
   { n: "03", title: "Ship", body: "Deployment, domains, SEO, and analytics handled. It goes live fast and stays fast." },
   { n: "04", title: "Support", body: "Post-launch fixes and iteration. The relationship does not end at deploy." },
 ]
@@ -41,9 +41,9 @@ export function ServicesSection() {
         <p className="mb-2 font-mono text-xs uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-400">
           04 // services
         </p>
-        <h2 className="text-3xl font-semibold tracking-tight">Work with me</h2>
+        <h2 className="text-3xl font-semibold tracking-tight">Work with us</h2>
         <p className="mb-6 mt-1 text-muted-foreground sm:mb-8">
-          What I build, and how a project runs from first call to launch.
+          What we build, and how a project runs from first call to launch.
         </p>
       </AnimateOnScroll>
 
@@ -74,9 +74,15 @@ export function ServicesSection() {
       </div>
 
       <AnimateOnScroll className="mt-10 sm:mt-12">
-        <Button asChild size="lg">
-          <a href="#contact">Start a project</a>
-        </Button>
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6">
+          <Button asChild size="lg">
+            <a href="#contact">Start a project</a>
+          </Button>
+          <p className="max-w-md text-sm text-muted-foreground">
+            Engagements are contracted through Noverstorm Tech Solutions Ltd, with a
+            written scope, agreed milestones, and formal invoicing.
+          </p>
+        </div>
       </AnimateOnScroll>
     </section>
   )

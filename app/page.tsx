@@ -51,7 +51,7 @@ export default function Page() {
       <header className="sticky top-0 z-40 border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
           <Link href="#" className="glitch-hover font-semibold tracking-tight">
-            {'<'}noble.dev{'/>'}
+            NOVERSTORM<span className="text-emerald-500">.</span>
           </Link>
           <nav className="hidden items-center gap-6 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground md:flex">
             <Link href="#about" className="transition-colors hover:text-emerald-600 dark:hover:text-emerald-400">
@@ -93,19 +93,20 @@ export default function Page() {
             <AnimateOnScroll className="flex flex-col items-center space-y-6">
               <p className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-400">
                 <span aria-hidden="true" className="inline-block h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
-                Available for freelance
+                Available for new projects
               </p>
-              <h1 className="glitch-hover cursor-default whitespace-nowrap text-[clamp(2.25rem,10vw,8.5rem)] font-bold leading-none tracking-tighter">
-                NOBLE<span className="text-emerald-500">.</span>
-                <span className="bg-gradient-to-br from-emerald-400 via-emerald-500 to-emerald-700 bg-clip-text italic text-transparent">
-                  DEV
+              <h1 className="glitch-hover cursor-default whitespace-nowrap text-[clamp(2rem,9.5vw,7.5rem)] font-bold leading-none tracking-tighter">
+                NOVER
+                <span className="bg-gradient-to-br from-emerald-400 via-emerald-500 to-emerald-700 bg-clip-text text-transparent">
+                  STORM
                 </span>
+                <span className="text-emerald-500">.</span>
               </h1>
               <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground sm:text-sm">
-                Full Stack Developer · reliable · fast · scalable
+                Tech Solutions · Software Development Studio
               </p>
               <p className="max-w-xl text-balance text-muted-foreground">
-                I build digital products at the intersection of commerce, technology,
+                We build digital products at the intersection of commerce, technology,
                 and scale: modern web apps with React, Next.js, and clean backend
                 architecture, shipped production-ready.
               </p>
@@ -116,11 +117,14 @@ export default function Page() {
                 <Button asChild size="lg" variant="outline">
                   <a href="#contact">
                     <Mail className="mr-2 h-4 w-4" />
-                    Contact Me
+                    Contact Us
                   </a>
                 </Button>
               </div>
-              <div className="flex items-center gap-3 pt-2">
+              <p className="pt-2 font-mono text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
+                Founded and led by Noble Okorie Chibueze
+              </p>
+              <div className="flex items-center gap-3">
                 <Button asChild variant="ghost" size="icon" aria-label="Email">
                   <a href="mailto:noblenergyy@gmail.com">
                     <Mail className="h-5 w-5" />
@@ -161,7 +165,7 @@ export default function Page() {
                 Featured Projects
               </h2>
               <p className="text-muted-foreground">
-                A selection of things I am proud of.
+                Selected work we have delivered for clients.
               </p>
             </div>
             <div className="hidden md:flex gap-2">
@@ -199,7 +203,7 @@ export default function Page() {
                 Skills and Tools
               </h2>
               <p className="mt-1 text-muted-foreground">
-                The stack I use to take products from idea to production.
+                The stack we use to take products from idea to production.
               </p>
             </div>
             <SkillsGrid />
@@ -230,8 +234,8 @@ export default function Page() {
                 </h2>
               </div>
               <p className="text-muted-foreground">
-                Have a project, job opportunity, or idea in mind? I would love
-                to hear from you. I usually respond within 1 to 2 business days.
+                Have a project, partnership, or idea in mind? We would love to
+                hear from you, and we respond within 1 to 2 business days.
               </p>
               <div className="flex flex-wrap gap-3">
                 <Button asChild variant="outline">
@@ -269,7 +273,7 @@ export default function Page() {
       >
         <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-4 px-4 pt-6 pb-24 md:pr-24 md:pb-6">
           <p>
-            {'©'} {new Date().getFullYear()} Noble Okorie Chibueze. All rights reserved.
+            {'©'} {new Date().getFullYear()} Noverstorm Tech Solutions Ltd. All rights reserved.
           </p>
           <div className="flex flex-col items-center gap-3 md:items-end">
             <div className="flex items-center gap-5 font-mono text-xs uppercase tracking-[0.2em]">

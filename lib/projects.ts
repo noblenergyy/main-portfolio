@@ -31,7 +31,7 @@ export const caseStudies: CaseStudy[] = [
     problem:
       "In professional services, credibility is the product. The Hague Industries operates in rooms where government, commerce, and international trade meet, and needed a web presence with the same weight: one that establishes trust before the first meeting.",
     solution:
-      "I designed and built a corporate site around clarity and authority: restrained typography, a content structure that walks a visitor from capability to contact, and fully static pages that load instantly anywhere in the world. Built with Next.js and Tailwind CSS, deployed on Vercel.",
+      "We designed and built a corporate site around clarity and authority: restrained typography, a content structure that walks a visitor from capability to contact, and fully static pages that load instantly anywhere in the world. Built with Next.js and Tailwind CSS, deployed on Vercel.",
     features: [
       "Fully static pages with sub-second loads",
       "Content architecture built around the firm's service lines",

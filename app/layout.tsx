@@ -8,8 +8,9 @@ const heading = Space_Grotesk({ subsets: ['latin'], variable: '--font-heading' }
 const mono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono' })
 
 export const metadata: Metadata = {
-  title: 'Noble Okorie Chibueze | Full Stack Developer',
-  description: 'Full stack developer building digital products at the intersection of commerce, technology, and scale.',
+  title: 'Noverstorm Tech Solutions | Software Development Studio',
+  description:
+    'Noverstorm Tech Solutions builds digital products at the intersection of commerce, technology, and scale: web apps, platforms, and integrations shipped production-ready.',
 }
 
 export default function RootLayout({

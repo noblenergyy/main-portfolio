@@ -85,17 +85,16 @@ export function FunEffects() {
   // Greeting for anyone who opens dev tools
   useEffect(() => {
     const banner = [
-      " _   _  ___  ____  _     _____   ____  _______     __",
-      "| \\ | |/ _ \\| __ )| |   | ____| |  _ \\| ____\\ \\   / /",
-      "|  \\| | | | |  _ \\| |   |  _|   | | | |  _|  \\ \\ / / ",
-      "| |\\  | |_| | |_) | |___| |___ _| |_| | |___  \\ V /  ",
-      "|_| \\_|\\___/|____/|_____|_____(_)____/|_____|  \\_/   ",
+      "╔══════════════════════════════════════════════╗",
+      "║   N O V E R S T O R M                        ║",
+      "║   Tech Solutions Ltd                         ║",
+      "╚══════════════════════════════════════════════╝",
     ].join("\n")
     // eslint-disable-next-line no-console
     console.log(`%c${banner}`, "color:#ff6b47;font-family:monospace")
     // eslint-disable-next-line no-console
     console.log(
-      "%cYou opened the console. I like you already.\n%cI build reliable, fast, scalable web apps. Let's talk: noblenergyy@gmail.com\nPsst: press ` on the site for a terminal, and try the Konami code.",
+      "%cYou opened the console. We like you already.\n%cWe build reliable, fast, scalable web apps. Let's talk: noblenergyy@gmail.com\nPsst: press ` on the site for a terminal, and try the Konami code.",
       "color:#ff6b47;font-size:14px;font-weight:bold",
       "color:#888;font-size:12px",
     )
