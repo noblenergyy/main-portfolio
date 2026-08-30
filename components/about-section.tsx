@@ -106,7 +106,7 @@ export function AboutSection() {
               </a>
             </Button>
             <Button asChild variant="ghost" size="sm">
-              <a href="mailto:noblenergyy@gmail.com">
+              <a href="mailto:hello.noverstorm@gmail.com">
                 <Mail className="mr-2 h-4 w-4" />
                 Email
               </a>

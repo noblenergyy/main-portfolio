@@ -118,7 +118,7 @@ export function Terminal() {
           )
           break
         case "contact":
-          out("email:  noblenergyy@gmail.com", "form:   scroll down, it works.")
+          out("email:  hello.noverstorm@gmail.com", "form:   scroll down, it works.")
           break
         case "theme": {
           const next = resolvedTheme === "dark" ? "light" : "dark"
@@ -149,7 +149,7 @@ export function Terminal() {
         }
         case "price":
         case "pricing":
-          out("text me lol  email: noblenergyy@gmail.com")
+          out("text me lol  email: hello.noverstorm@gmail.com")
           break
         case "clear":
           setLines([])

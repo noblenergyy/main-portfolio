@@ -122,11 +122,11 @@ export default function Page() {
                 </Button>
               </div>
               <p className="pt-2 font-mono text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
-                Founded and led by Noble Okorie Chibueze
+                Founded by Noble<span className="text-emerald-500">.</span>dev
               </p>
               <div className="flex items-center gap-3">
                 <Button asChild variant="ghost" size="icon" aria-label="Email">
-                  <a href="mailto:noblenergyy@gmail.com">
+                  <a href="mailto:hello.noverstorm@gmail.com">
                     <Mail className="h-5 w-5" />
                   </a>
                 </Button>
@@ -239,9 +239,9 @@ export default function Page() {
               </p>
               <div className="flex flex-wrap gap-3">
                 <Button asChild variant="outline">
-                  <a href="mailto:noblenergyy@gmail.com">
+                  <a href="mailto:hello.noverstorm@gmail.com">
                     <Mail className="mr-2 h-4 w-4" />
-                    noblenergyy@gmail.com
+                    hello.noverstorm@gmail.com
                   </a>
                 </Button>
                 <Button asChild variant="ghost">
