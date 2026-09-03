@@ -1,11 +1,12 @@
 import { ImageResponse } from "next/og"
 import { SITE_NAME } from "@/lib/site"
+import { loadOgFonts } from "@/lib/og-fonts"
 
 export const alt = `${SITE_NAME} — Software Development Studio`
 export const size = { width: 1200, height: 630 }
 export const contentType = "image/png"
 
-export default function OpengraphImage() {
+export default async function OpengraphImage() {
   return new ImageResponse(
     (
       <div
@@ -19,6 +20,7 @@ export default function OpengraphImage() {
           backgroundImage:
             "linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)",
           backgroundSize: "56px 56px",
+          fontFamily: "Geist",
           padding: "0 80px",
         }}
       >
@@ -38,7 +40,7 @@ export default function OpengraphImage() {
             display: "flex",
             marginTop: 18,
             fontSize: 132,
-            fontWeight: 700,
+            fontWeight: 900,
             letterSpacing: -6,
             color: "#fafafa",
           }}
@@ -74,6 +76,6 @@ export default function OpengraphImage() {
         </div>
       </div>
     ),
-    { ...size },
+    { ...size, fonts: await loadOgFonts() },
   )
 }
