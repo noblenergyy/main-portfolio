@@ -20,8 +20,22 @@ export async function generateMetadata({
   const cs = caseStudies.find((c) => c.slug === slug)
   if (!cs) return {}
   return {
-    title: `${cs.title} | Case Study | Noverstorm Tech Solutions`,
+    title: `${cs.title} | Case Study`,
     description: cs.description,
+    alternates: {
+      canonical: `/projects/${cs.slug}`,
+    },
+    openGraph: {
+      type: "article",
+      url: `/projects/${cs.slug}`,
+      title: `${cs.title} | Case Study`,
+      description: cs.description,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${cs.title} | Case Study`,
+      description: cs.description,
+    },
   }
 }
 
