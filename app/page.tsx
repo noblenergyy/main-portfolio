@@ -99,9 +99,9 @@ export default function Page() {
               <p className="bg-foreground px-4 py-2 font-mono text-xs uppercase tracking-[0.3em] text-background">
                 Available for new projects
               </p>
-              <h1 className="glitch-hover cursor-default whitespace-nowrap text-[clamp(2rem,9vw,6.5rem)] font-bold leading-none tracking-tighter">
+              <h1 className="glitch-hover cursor-default whitespace-nowrap text-[clamp(2rem,9vw,6.5rem)] font-bold leading-none tracking-tighter dark:font-semibold">
                 NOVER
-                <span className="bg-gradient-to-br from-emerald-400 via-emerald-500 to-emerald-700 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-br from-foreground via-foreground to-neutral-400 bg-clip-text text-transparent">
                   STORM
                 </span>
                 <span className="text-emerald-500">.</span>
