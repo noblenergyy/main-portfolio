@@ -96,7 +96,7 @@ export default function Page() {
           <div className="container relative z-10 mx-auto flex flex-col items-center px-4 py-20 text-center sm:py-24 md:py-32">
             <AnimateOnScroll className="flex flex-col items-center space-y-6">
               <LogoMark className="h-20 sm:h-24 md:h-28" priority />
-              <p className="border border-emerald-500/40 bg-emerald-500/10 px-4 py-2 font-mono text-xs uppercase tracking-[0.3em] text-emerald-700 dark:text-emerald-300">
+              <p className="bg-foreground px-4 py-2 font-mono text-xs uppercase tracking-[0.3em] text-background">
                 Available for new projects
               </p>
               <h1 className="glitch-hover cursor-default whitespace-nowrap text-[clamp(2rem,9.5vw,7.5rem)] font-bold leading-none tracking-tighter">
