@@ -90,16 +90,16 @@ export default function Page() {
         {/* Hero */}
         <section
           aria-label="Hero"
-          className="relative overflow-hidden border-b"
+          className="relative flex min-h-[calc(100svh-4rem)] items-center overflow-hidden border-b"
         >
           <Starfield />
-          <div className="container relative z-10 mx-auto flex flex-col items-center px-4 py-20 text-center sm:py-24 md:py-32">
-            <AnimateOnScroll className="flex flex-col items-center space-y-6">
-              <LogoMark className="h-20 sm:h-24 md:h-28" priority />
+          <div className="container relative z-10 mx-auto flex w-full flex-col items-center px-4 py-12 text-center sm:py-16">
+            <AnimateOnScroll className="flex flex-col items-center space-y-5">
+              <LogoMark className="h-16 sm:h-20 md:h-24" priority />
               <p className="bg-foreground px-4 py-2 font-mono text-xs uppercase tracking-[0.3em] text-background">
                 Available for new projects
               </p>
-              <h1 className="glitch-hover cursor-default whitespace-nowrap text-[clamp(2rem,9.5vw,7.5rem)] font-bold leading-none tracking-tighter">
+              <h1 className="glitch-hover cursor-default whitespace-nowrap text-[clamp(2rem,9vw,6.5rem)] font-bold leading-none tracking-tighter">
                 NOVER
                 <span className="bg-gradient-to-br from-emerald-400 via-emerald-500 to-emerald-700 bg-clip-text text-transparent">
                   STORM
