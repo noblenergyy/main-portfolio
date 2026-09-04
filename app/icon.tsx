@@ -1,10 +1,15 @@
 import { ImageResponse } from "next/og"
-import { loadOgFonts } from "@/lib/og-fonts"
 
 export const size = { width: 32, height: 32 }
 export const contentType = "image/png"
 
-export default async function Icon() {
+/**
+ * The full logo's thin strokes turn to noise at 32px, so the tab icon uses a
+ * simplified funnel: the same silhouette drawn with solid bars that stay legible.
+ */
+const BARS = [26, 22, 18, 13, 8]
+
+export default function Icon() {
   return new ImageResponse(
     (
       <div
@@ -12,19 +17,26 @@ export default async function Icon() {
           width: "100%",
           height: "100%",
           display: "flex",
+          flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
+          gap: 2,
           backgroundColor: "#0a0a0a",
-          color: "#fafafa",
-          fontFamily: "Geist",
-          fontSize: 26,
-          fontWeight: 900,
-          letterSpacing: -1,
         }}
       >
-        N
+        {BARS.map((w) => (
+          <div
+            key={w}
+            style={{
+              width: w,
+              height: 3,
+              borderRadius: 2,
+              backgroundColor: "#fafafa",
+            }}
+          />
+        ))}
       </div>
     ),
-    { ...size, fonts: await loadOgFonts() },
+    { ...size },
   )
 }

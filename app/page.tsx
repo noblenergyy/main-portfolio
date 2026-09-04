@@ -19,6 +19,7 @@ import { Terminal } from "@/components/terminal"
 import { ServicesSection } from "@/components/services-section"
 import { Starfield } from "@/components/starfield"
 import { AccentPicker } from "@/components/accent-picker"
+import { LogoMark, LogoFull } from "@/components/logo"
 
 export default function Page() {
   useEffect(() => {
@@ -50,8 +51,11 @@ export default function Page() {
       <div aria-hidden="true" className="scanlines-overlay pointer-events-none fixed inset-0 -z-10" />
       <header className="sticky top-0 z-40 border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
-          <Link href="#" className="glitch-hover font-semibold tracking-tight">
-            NOVERSTORM<span className="text-emerald-500">.</span>
+          <Link href="#" className="flex items-center gap-2.5">
+            <LogoMark className="h-7" priority />
+            <span className="glitch-hover font-semibold tracking-tight">
+              NOVERSTORM<span className="text-emerald-500">.</span>
+            </span>
           </Link>
           <nav className="hidden items-center gap-6 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground md:flex">
             <Link href="#about" className="transition-colors hover:text-emerald-600 dark:hover:text-emerald-400">
@@ -91,6 +95,7 @@ export default function Page() {
           <Starfield />
           <div className="container relative z-10 mx-auto flex flex-col items-center px-4 py-20 text-center sm:py-24 md:py-32">
             <AnimateOnScroll className="flex flex-col items-center space-y-6">
+              <LogoMark className="h-20 sm:h-24 md:h-28" priority />
               <p className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-400">
                 <span aria-hidden="true" className="inline-block h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
                 Available for new projects
@@ -272,9 +277,12 @@ export default function Page() {
         className="border-t bg-muted/30 text-sm text-muted-foreground"
       >
         <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-4 px-4 pt-6 pb-24 md:pr-24 md:pb-6">
-          <p>
-            {'©'} {new Date().getFullYear()} Noverstorm Tech Solutions Ltd. All rights reserved.
-          </p>
+          <div className="flex flex-col items-center gap-3 md:items-start">
+            <LogoFull className="h-14" />
+            <p>
+              {'©'} {new Date().getFullYear()} Noverstorm Tech Solutions Ltd. All rights reserved.
+            </p>
+          </div>
           <div className="flex flex-col items-center gap-3 md:items-end">
             <div className="flex items-center gap-5 font-mono text-xs uppercase tracking-[0.2em]">
               <a href="#about" className="transition-colors hover:text-emerald-600 dark:hover:text-emerald-400">

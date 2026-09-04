@@ -1,12 +1,14 @@
 import { ImageResponse } from "next/og"
 import { SITE_NAME } from "@/lib/site"
 import { loadOgFonts } from "@/lib/og-fonts"
+import { publicImageDataUri } from "@/lib/og-assets"
 
 export const alt = `${SITE_NAME} — Software Development Studio`
 export const size = { width: 1200, height: 630 }
 export const contentType = "image/png"
 
 export default async function OpengraphImage() {
+  const logo = await publicImageDataUri("logo-mark-white.png")
   return new ImageResponse(
     (
       <div
@@ -24,6 +26,8 @@ export default async function OpengraphImage() {
           padding: "0 80px",
         }}
       >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={logo} width={118} height={104} alt="" style={{ marginBottom: 26 }} />
         <div
           style={{
             display: "flex",

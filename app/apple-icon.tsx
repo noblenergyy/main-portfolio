@@ -1,10 +1,11 @@
 import { ImageResponse } from "next/og"
-import { loadOgFonts } from "@/lib/og-fonts"
+import { publicImageDataUri } from "@/lib/og-assets"
 
 export const size = { width: 180, height: 180 }
 export const contentType = "image/png"
 
 export default async function AppleIcon() {
+  const logo = await publicImageDataUri("logo-mark-white.png")
   return new ImageResponse(
     (
       <div
@@ -15,16 +16,12 @@ export default async function AppleIcon() {
           alignItems: "center",
           justifyContent: "center",
           backgroundColor: "#0a0a0a",
-          color: "#fafafa",
-          fontFamily: "Geist",
-          fontSize: 132,
-          fontWeight: 900,
-          letterSpacing: -6,
         }}
       >
-        N
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={logo} width={148} height={130} alt="" />
       </div>
     ),
-    { ...size, fonts: await loadOgFonts() },
+    { ...size },
   )
 }
