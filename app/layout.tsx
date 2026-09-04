@@ -26,10 +26,9 @@ export const metadata: Metadata = {
     "Django developer",
     "custom software development",
     "MVP development",
-    "Noble Okorie Chibueze",
   ],
-  authors: [{ name: "Noble Okorie Chibueze" }],
-  creator: "Noble Okorie Chibueze",
+  authors: [{ name: "noble <dev/>" }],
+  creator: "noble <dev/>",
   publisher: `${SITE_NAME} Ltd`,
   alternates: {
     canonical: "/",
@@ -70,8 +69,8 @@ const organizationSchema = {
   email: "hello.noverstorm@gmail.com",
   founder: {
     "@type": "Person",
-    name: "Noble Okorie Chibueze",
-    jobTitle: "Founder & Lead Engineer",
+    name: "noble <dev/>",
+    jobTitle: "Founder",
   },
   areaServed: "Worldwide",
   knowsAbout: [

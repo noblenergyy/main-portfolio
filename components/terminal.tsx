@@ -83,8 +83,8 @@ export function Terminal() {
           break
         case "founder":
           out(
-            "Noble Okorie Chibueze",
-            "Founder & Lead Engineer",
+            "noble <dev/>",
+            "founder, Noverstorm Tech Solutions",
             "Leads every engagement from architecture through to deployment.",
             "github.com/noblenergyy",
           )

@@ -127,7 +127,7 @@ export default function Page() {
                 </Button>
               </div>
               <p className="pt-2 font-mono text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
-                Founded by Noble<span className="text-emerald-500">.</span>dev
+                Founded by noble <span className="text-emerald-500">{"<dev/>"}</span>
               </p>
               <div className="flex items-center gap-3">
                 <Button asChild variant="ghost" size="icon" aria-label="Email">

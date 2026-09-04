@@ -1,13 +1,11 @@
 "use client"
 
 import { AnimateOnScroll } from "@/components/animate-on-scroll"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import { Github, Mail } from "lucide-react"
 
 const facts: { label: string; value: string }[] = [
   { label: "company", value: "Noverstorm Tech Solutions Ltd" },
-  { label: "founder", value: "Noble Okorie Chibueze" },
+  { label: "founder", value: "noble <dev/>" },
   { label: "practice", value: "Web apps · platforms · integrations" },
   { label: "stack", value: "Next.js · TypeScript · Django" },
   { label: "base", value: "Remote · worldwide" },
@@ -81,38 +79,15 @@ export function AboutSection() {
         </AnimateOnScroll>
       </div>
 
-      <AnimateOnScroll className="mt-12 sm:mt-16">
-        <div className="border-l-2 border-emerald-500/50 pl-5 sm:pl-6">
-          <p className="mb-2 font-mono text-xs uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-400">
-            founder
-          </p>
-          <h3 className="text-xl font-semibold tracking-tight">
-            Noble Okorie Chibueze
-          </h3>
-          <p className="mt-1 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-            Founder &amp; Lead Engineer
-          </p>
-          <p className="mt-3 max-w-2xl text-muted-foreground">
-            Noble founded Noverstorm to give the work he was already delivering a
-            proper home: a registered studio clients can contract, brief, and hold to
-            a standard. He leads every engagement personally, from architecture and
-            implementation through to deployment and post-launch support.
-          </p>
-          <div className="mt-4 flex flex-wrap gap-3">
-            <Button asChild variant="outline" size="sm">
-              <a href="https://github.com/noblenergyy" target="_blank" rel="noreferrer">
-                <Github className="mr-2 h-4 w-4" />
-                GitHub
-              </a>
-            </Button>
-            <Button asChild variant="ghost" size="sm">
-              <a href="mailto:hello.noverstorm@gmail.com">
-                <Mail className="mr-2 h-4 w-4" />
-                Email
-              </a>
-            </Button>
-          </div>
-        </div>
+      <AnimateOnScroll className="mt-10 sm:mt-12">
+        <p className="max-w-2xl border-l-2 border-emerald-500/50 pl-5 text-sm text-muted-foreground sm:pl-6">
+          The studio is founded and led by{" "}
+          <span className="font-mono text-foreground">
+            noble <span className="text-emerald-500">{"<dev/>"}</span>
+          </span>
+          , who runs every engagement from architecture through to deployment and
+          post-launch support.
+        </p>
       </AnimateOnScroll>
     </section>
   )
