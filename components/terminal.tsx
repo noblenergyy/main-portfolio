@@ -5,6 +5,15 @@ import { useTheme } from "next-themes"
 import { TerminalSquare, X } from "lucide-react"
 import { isStarsEnabled, setStarsEnabled } from "@/components/starfield"
 import { ACCENTS, setAccent, type AccentId } from "@/components/accent-picker"
+import { WindowControls } from "@/components/window-controls"
+import { cn } from "@/lib/utils"
+
+const TERMINAL_EVENT = "noverstorm-terminal-open"
+
+/** Opens the terminal from anywhere on the page. */
+export function openTerminal(maximized = false) {
+  window.dispatchEvent(new CustomEvent(TERMINAL_EVENT, { detail: { maximized } }))
+}
 
 type Line = { kind: "in" | "out" | "ok" | "err"; text: string }
 
@@ -37,6 +46,8 @@ const HELP: string[] = [
 
 export function Terminal() {
   const [open, setOpen] = useState(false)
+  const [maximized, setMaximized] = useState(false)
+  const [collapsed, setCollapsed] = useState(false)
   const [lines, setLines] = useState<Line[]>([
     { kind: "ok", text: "noverstorm terminal v1.0.0" },
     { kind: "out", text: "type 'help' to get started." },
@@ -184,6 +195,30 @@ export function Terminal() {
     [print, resolvedTheme, setTheme],
   )
 
+  // Allow other components to open the terminal, optionally maximized
+  useEffect(() => {
+    const onOpenRequest = (e: Event) => {
+      const detail = (e as CustomEvent<{ maximized?: boolean }>).detail
+      setMaximized(Boolean(detail?.maximized))
+      setCollapsed(false)
+      setOpen(true)
+    }
+    window.addEventListener(TERMINAL_EVENT, onOpenRequest)
+    return () => window.removeEventListener(TERMINAL_EVENT, onOpenRequest)
+  }, [])
+
+  // Escape steps back out: maximized -> floating -> closed
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return
+      if (maximized) setMaximized(false)
+      else setOpen(false)
+    }
+    window.addEventListener("keydown", onKey)
+    return () => window.removeEventListener("keydown", onKey)
+  }, [open, maximized])
+
   // Toggle with backtick when not typing elsewhere
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -253,15 +288,36 @@ export function Terminal() {
         <div
           role="dialog"
           aria-label="Interactive terminal"
-          className="fixed bottom-20 right-5 z-50 flex w-[min(540px,calc(100vw-2.5rem))] flex-col overflow-hidden border border-emerald-500/50 bg-[#0f0b0a] font-mono text-[13px] text-neutral-200 shadow-2xl"
+          className={cn(
+            "fixed z-50 flex flex-col overflow-hidden border border-emerald-500/50 bg-[#0f0b0a] font-mono text-[13px] text-neutral-200 shadow-2xl",
+            maximized
+              ? "inset-3 sm:inset-8"
+              : "bottom-20 right-5 w-[min(540px,calc(100vw-2.5rem))]",
+          )}
         >
           <div className="flex items-center gap-1.5 border-b border-emerald-500/20 bg-[#161110] px-3 py-2">
-            <span aria-hidden="true" className="h-2.5 w-2.5 rounded-full bg-red-400" />
-            <span aria-hidden="true" className="h-2.5 w-2.5 rounded-full bg-yellow-400" />
-            <span aria-hidden="true" className="h-2.5 w-2.5 rounded-full bg-green-400" />
+            <WindowControls
+              onClose={() => setOpen(false)}
+              onMinimize={() =>
+                maximized ? setMaximized(false) : setCollapsed((c) => !c)
+              }
+              onMaximize={() => {
+                setCollapsed(false)
+                setMaximized(true)
+              }}
+              labels={{
+                close: "Close terminal",
+                minimize: maximized ? "Restore terminal" : "Collapse terminal",
+                maximize: "Maximize terminal",
+              }}
+            />
             <span className="flex-1 text-center text-[11px] text-neutral-500">guest@noverstorm: ~</span>
           </div>
-          <div ref={bodyRef} className="h-72 overflow-y-auto p-3 leading-relaxed">
+          {!collapsed && (
+          <div
+            ref={bodyRef}
+            className={cn("overflow-y-auto p-3 leading-relaxed", maximized ? "flex-1" : "h-72")}
+          >
             {lines.map((line, i) => (
               <div key={i} className="whitespace-pre-wrap break-words">
                 {line.kind === "in" ? (
@@ -285,6 +341,8 @@ export function Terminal() {
               </div>
             ))}
           </div>
+          )}
+          {!collapsed && (
           <form onSubmit={onSubmit} className="flex items-center gap-2 border-t border-emerald-500/20 px-3 py-2">
             <span className="text-emerald-400">$</span>
             <input
@@ -299,6 +357,7 @@ export function Terminal() {
               placeholder="type 'help'"
             />
           </form>
+          )}
         </div>
       )}
     </>

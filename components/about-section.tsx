@@ -1,7 +1,10 @@
 "use client"
 
+import { useState } from "react"
 import { AnimateOnScroll } from "@/components/animate-on-scroll"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { WindowControls } from "@/components/window-controls"
+import { openTerminal } from "@/components/terminal"
 
 const facts: { label: string; value: string }[] = [
   { label: "company", value: "Noverstorm Tech Solutions Ltd" },
@@ -13,7 +16,11 @@ const facts: { label: string; value: string }[] = [
   { label: "status", value: "available for new projects" },
 ]
 
+type WindowState = "open" | "collapsed" | "closed"
+
 export function AboutSection() {
+  const [windowState, setWindowState] = useState<WindowState>("open")
+
   return (
     <section
       id="about"
@@ -49,15 +56,37 @@ export function AboutSection() {
           </p>
         </AnimateOnScroll>
         <AnimateOnScroll delayMs={100}>
+          {windowState === "closed" ? (
+            <button
+              type="button"
+              onClick={() => setWindowState("open")}
+              className="flex items-center gap-2 border border-emerald-600/30 bg-muted/40 px-4 py-3 font-mono text-sm text-muted-foreground transition-colors hover:border-emerald-600/60 hover:text-foreground"
+            >
+              <span className="text-emerald-600 dark:text-emerald-400">$</span>
+              whoami
+              <span className="text-xs opacity-60">reopen</span>
+            </button>
+          ) : (
           <Card className="overflow-hidden border-emerald-600/20 font-mono text-sm">
             <CardHeader className="flex-row items-center gap-2 space-y-0 border-b bg-muted/50 px-4 py-3">
-              <span aria-hidden="true" className="h-3 w-3 rounded-full bg-red-400" />
-              <span aria-hidden="true" className="h-3 w-3 rounded-full bg-yellow-400" />
-              <span aria-hidden="true" className="h-3 w-3 rounded-full bg-green-400" />
+              <WindowControls
+                size="md"
+                onClose={() => setWindowState("closed")}
+                onMinimize={() =>
+                  setWindowState((w) => (w === "collapsed" ? "open" : "collapsed"))
+                }
+                onMaximize={() => openTerminal(true)}
+                labels={{
+                  close: "Close window",
+                  minimize: windowState === "collapsed" ? "Expand window" : "Collapse window",
+                  maximize: "Open full terminal",
+                }}
+              />
               <span className="flex-1 text-center text-xs text-muted-foreground">
                 guest@noverstorm: ~
               </span>
             </CardHeader>
+            {windowState === "open" && (
             <CardContent className="space-y-2 p-5">
               <p>
                 <span className="text-emerald-600 dark:text-emerald-400">$</span> whoami
@@ -76,7 +105,9 @@ export function AboutSection() {
                 />
               </p>
             </CardContent>
+            )}
           </Card>
+          )}
         </AnimateOnScroll>
       </div>
 
