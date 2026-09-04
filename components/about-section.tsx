@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card"
 const facts: { label: string; value: string }[] = [
   { label: "company", value: "Noverstorm Tech Solutions Ltd" },
   { label: "founder", value: "noble <dev/>" },
+  { label: "team", value: "Engineers · designers · remote" },
   { label: "practice", value: "Web apps · platforms · integrations" },
   { label: "stack", value: "Next.js · TypeScript · Django" },
   { label: "base", value: "Remote · worldwide" },
@@ -81,12 +82,12 @@ export function AboutSection() {
 
       <AnimateOnScroll className="mt-10 sm:mt-12">
         <p className="max-w-2xl border-l-2 border-emerald-500/50 pl-5 text-sm text-muted-foreground sm:pl-6">
-          The studio is founded and led by{" "}
+          Noverstorm is founded and led by{" "}
           <span className="font-mono text-foreground">
             noble <span className="text-emerald-500">{"<dev/>"}</span>
           </span>
-          , who runs every engagement from architecture through to deployment and
-          post-launch support.
+          , working with a team of engineers and designers who carry each project
+          from architecture through to deployment and post-launch support.
         </p>
       </AnimateOnScroll>
     </section>

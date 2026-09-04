@@ -85,7 +85,7 @@ export function Terminal() {
           out(
             "noble <dev/>",
             "founder, Noverstorm Tech Solutions",
-            "Leads every engagement from architecture through to deployment.",
+            "Leads the team across architecture, build and deployment.",
             "github.com/noblenergyy",
           )
           break
