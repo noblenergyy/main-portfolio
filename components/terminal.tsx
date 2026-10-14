@@ -18,11 +18,13 @@ export function openTerminal(maximized = false) {
 type Line = { kind: "in" | "out" | "ok" | "err"; text: string }
 
 const PROJECT_LINKS: Record<string, string> = {
+  bcijval: "https://bcijvalengineering.com",
   hague: "https://thehagueindustries.com",
   papertrail: "https://papertrail-news.vercel.app/",
   dondax: "https://dondaxlimited.com",
   lawangels: "https://lawangelsuk.com",
   latiodus: "https://latiodus.vercel.app/",
+  seo: "/seo",
   github: "https://github.com/noblenergyy",
 }
 
@@ -102,6 +104,7 @@ export function Terminal() {
           break
         case "projects":
           out(
+            "b-cijval-engineering   engineering firm      [SHIPPED]",
             "the-hague-industries   corporate site        [SHIPPED]",
             "papertrail             AI newsletter         [IN PROGRESS]",
             "dondax                 e-mobility site       [SHIPPED]",
@@ -117,7 +120,7 @@ export function Terminal() {
             window.open(PROJECT_LINKS[key], "_blank", "noopener")
             ok(`opening ${key}...`)
           } else {
-            err(`unknown target: ${arg || "(none)"}. try: hague, papertrail, dondax, lawangels, latiodus, github`)
+            err(`unknown target: ${arg || "(none)"}. try: bcijval, hague, papertrail, dondax, lawangels, latiodus, seo, github`)
           }
           break
         }

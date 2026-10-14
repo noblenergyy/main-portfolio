@@ -70,6 +70,9 @@ export default function Page() {
             <Link href="#services" className="transition-colors hover:text-emerald-600 dark:hover:text-emerald-400">
               services
             </Link>
+            <Link href="/seo" className="transition-colors hover:text-emerald-600 dark:hover:text-emerald-400">
+              seo
+            </Link>
             <Link href="#contact" className="transition-colors hover:text-emerald-600 dark:hover:text-emerald-400">
               contact
             </Link>
@@ -293,6 +296,9 @@ export default function Page() {
               <a href="#skills" className="transition-colors hover:text-emerald-600 dark:hover:text-emerald-400">
                 skills
               </a>
+              <Link href="/seo" className="transition-colors hover:text-emerald-600 dark:hover:text-emerald-400">
+                seo
+              </Link>
               <a href="#contact" className="transition-colors hover:text-emerald-600 dark:hover:text-emerald-400">
                 contact
               </a>

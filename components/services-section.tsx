@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { AnimateOnScroll } from "@/components/animate-on-scroll"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -97,6 +98,12 @@ export function ServicesSection() {
             Engagements are contracted through Noverstorm Tech Solutions Ltd, with a
             written scope, agreed milestones, and formal invoicing.
           </p>
+          <Link
+            href="/seo"
+            className="font-mono text-xs uppercase tracking-[0.2em] text-emerald-600 transition-colors hover:text-foreground dark:text-emerald-400 sm:ml-auto sm:shrink-0"
+          >
+            seo services &rarr;
+          </Link>
         </div>
       </AnimateOnScroll>
     </section>

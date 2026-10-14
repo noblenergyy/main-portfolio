@@ -4,6 +4,7 @@ import papertrail from "@/public/papertrail.png"
 import dondaxpicture from "@/public/dondaxpicture.png"
 import lawangelsscreenshot from "@/public/lawangelsscreenshot.png"
 import latiodus from "@/public/latiodus.png"
+import bcijval from "@/public/bcijval.png"
 
 export type CaseStudy = {
   slug: string
@@ -19,6 +20,28 @@ export type CaseStudy = {
 }
 
 export const caseStudies: CaseStudy[] = [
+  {
+    slug: "b-cijval-engineering",
+    title: "B-CIJVAL Engineering",
+    description:
+      "Corporate website for B-CIJVAL Engineering Services Ltd, an engineering, consultancy, construction and project management firm working across buildings, infrastructure and water resources.",
+    image: bcijval,
+    tags: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS v4"],
+    status: "SHIPPED",
+    demo: "https://bcijvalengineering.com",
+    problem:
+      "B-CIJVAL delivers buildings, infrastructure, water resources and environmental work across many states, but that portfolio lived in a company profile document. Prospective clients had no way to see the scale of the firm or start a project online.",
+    solution:
+      "A full corporate site built on the Next.js App Router: 9 service pages, 22 project case studies, 7 engineering divisions and a plant register, all generated from typed content files so adding a project means editing one object. Navigation, listings, related links and the sitemap update from the same source.",
+    features: [
+      "22 project case studies and 9 service lines from one template each",
+      "Mega menu navigation across services, engineering and equipment",
+      "Interactive state coverage map",
+      "Project enquiry form with webhook delivery to the firm's inbox or CRM",
+      "Insights, news and careers sections",
+      "Typed content layer: one edit updates pages, listings and sitemap",
+    ],
+  },
   {
     slug: "the-hague-industries",
     title: "The Hague Industries",
