@@ -4,7 +4,7 @@ import papertrail from "@/public/papertrail.png"
 import dondaxpicture from "@/public/dondaxpicture.png"
 import lawangelsscreenshot from "@/public/lawangelsscreenshot.png"
 import latiodus from "@/public/latiodus.png"
-import bcijval from "@/public/bcijval.png"
+import bcijval from "@/public/bcijval.jpg"
 
 export type CaseStudy = {
   slug: string
