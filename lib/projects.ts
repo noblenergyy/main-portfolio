@@ -83,26 +83,6 @@ export const caseStudies: CaseStudy[] = [
     ],
   },
   {
-    slug: "dondax",
-    title: "DondaX Limited Website",
-    description:
-      "Website for DondaX Limited, an electric automobile company. Built with React.js, Django, Tailwind CSS, and MySQL.",
-    image: dondaxpicture,
-    tags: ["React.js", "TypeScript", "Tailwind", "Django", "MySQL"],
-    status: "SHIPPED",
-    demo: "https://dondaxlimited.com",
-    problem:
-      "DondaX is introducing electric vehicles to markets where the category is still unfamiliar. The site had to educate a first-time audience, showcase the vehicles, and convert curiosity into serious buyer interest.",
-    solution:
-      "A React front end backed by Django and MySQL: vehicle showcases that lead with imagery, a company story that builds confidence in a new brand, and inquiry flows that capture leads for the sales team.",
-    features: [
-      "Vehicle showcase with rich imagery",
-      "Lead capture and inquiry flows for the sales team",
-      "Django-backed content management",
-      "Responsive design for a mobile-first audience",
-    ],
-  },
-  {
     slug: "lawangels",
     title: "LawAngelsUk",
     description:
@@ -140,6 +120,33 @@ export const caseStudies: CaseStudy[] = [
       "Past project portfolio",
       "Clear service line breakdown",
       "Fast, responsive front end",
+    ],
+  },
+]
+
+/**
+ * Hidden from the site for now. Move an entry back into `caseStudies`
+ * to republish it.
+ */
+export const archivedCaseStudies: CaseStudy[] = [
+  {
+    slug: "dondax",
+    title: "DondaX Limited Website",
+    description:
+      "Website for DondaX Limited, an electric automobile company. Built with React.js, Django, Tailwind CSS, and MySQL.",
+    image: dondaxpicture,
+    tags: ["React.js", "TypeScript", "Tailwind", "Django", "MySQL"],
+    status: "SHIPPED",
+    demo: "https://dondaxlimited.com",
+    problem:
+      "DondaX is introducing electric vehicles to markets where the category is still unfamiliar. The site had to educate a first-time audience, showcase the vehicles, and convert curiosity into serious buyer interest.",
+    solution:
+      "A React front end backed by Django and MySQL: vehicle showcases that lead with imagery, a company story that builds confidence in a new brand, and inquiry flows that capture leads for the sales team.",
+    features: [
+      "Vehicle showcase with rich imagery",
+      "Lead capture and inquiry flows for the sales team",
+      "Django-backed content management",
+      "Responsive design for a mobile-first audience",
     ],
   },
 ]
