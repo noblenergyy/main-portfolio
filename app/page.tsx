@@ -17,6 +17,7 @@ import { SkillsGrid } from "@/components/skills-grid"
 import { Marquee } from "@/components/marquee"
 import { Terminal } from "@/components/terminal"
 import { ServicesSection } from "@/components/services-section"
+import { SeoSection } from "@/components/seo-section"
 import { Starfield } from "@/components/starfield"
 import { AccentPicker } from "@/components/accent-picker"
 import { LogoMark, LogoFull } from "@/components/logo"
@@ -70,7 +71,7 @@ export default function Page() {
             <Link href="#services" className="transition-colors hover:text-emerald-600 dark:hover:text-emerald-400">
               services
             </Link>
-            <Link href="/seo" className="transition-colors hover:text-emerald-600 dark:hover:text-emerald-400">
+            <Link href="#seo" className="transition-colors hover:text-emerald-600 dark:hover:text-emerald-400">
               seo
             </Link>
             <Link href="#contact" className="transition-colors hover:text-emerald-600 dark:hover:text-emerald-400">
@@ -222,6 +223,11 @@ export default function Page() {
         {/* Services */}
         <ServicesSection />
 
+        <Separator className="fade-divider" />
+
+        {/* SEO */}
+        <SeoSection />
+
         <Separator />
 
         {/* Contact */}
@@ -234,7 +240,7 @@ export default function Page() {
             <AnimateOnScroll className="space-y-4">
               <div>
                 <p className="mb-2 font-mono text-xs uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-400">
-                  05 // contact
+                  06 // contact
                 </p>
                 <h2 className="text-3xl font-semibold tracking-tight">
                   Let us build something great
@@ -296,7 +302,7 @@ export default function Page() {
               <a href="#skills" className="transition-colors hover:text-emerald-600 dark:hover:text-emerald-400">
                 skills
               </a>
-              <Link href="/seo" className="transition-colors hover:text-emerald-600 dark:hover:text-emerald-400">
+              <Link href="#seo" className="transition-colors hover:text-emerald-600 dark:hover:text-emerald-400">
                 seo
               </Link>
               <a href="#contact" className="transition-colors hover:text-emerald-600 dark:hover:text-emerald-400">
