@@ -59,6 +59,7 @@ export const caseStudies: CaseStudy[] = [
     image: gogetter,
     tags: ["Node.js 24", "SQLite", "Vanilla JS", "Gemini API", "Claude API", "Zod", "OpenStreetMap", "libphonenumber", "Nodemailer", "Caddy", "Oracle Cloud", "Vercel"],
     status: "SHIPPED",
+    demo: "https://noverstorm-gogetter.vercel.app",
     problem:
       "Selling websites to small businesses starts with finding the ones that don't have one, and that meant hours of scrolling maps, copying numbers and writing the same cold message again and again. Generic pitches got ignored, and sending too much email from one account risked getting it flagged.",
     solution:
