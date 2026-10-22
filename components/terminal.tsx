@@ -104,6 +104,7 @@ export function Terminal() {
         case "projects":
           out(
             "b-cijval-engineering   engineering firm      [SHIPPED]",
+            "gogetter               lead-gen + outreach   [SHIPPED]",
             "the-hague-industries   corporate site        [SHIPPED]",
             "papertrail             AI newsletter         [IN PROGRESS]",
             "lawangels              exam-prep platform    [SHIPPED]",

@@ -56,12 +56,14 @@ export default async function CaseStudyPage({
             <ArrowLeft className="h-4 w-4" />
             back to noverstorm
           </Link>
-          <Button asChild size="sm" variant="outline">
-            <a href={cs.demo} target="_blank" rel="noreferrer">
-              <ExternalLink className="mr-2 h-4 w-4" />
-              Live Site
-            </a>
-          </Button>
+          {cs.demo && (
+            <Button asChild size="sm" variant="outline">
+              <a href={cs.demo} target="_blank" rel="noreferrer">
+                <ExternalLink className="mr-2 h-4 w-4" />
+                Live Site
+              </a>
+            </Button>
+          )}
         </div>
       </header>
 
@@ -118,6 +120,50 @@ export default async function CaseStudyPage({
           </ul>
         </section>
 
+        {cs.internals && cs.internals.length > 0 && (
+          <section aria-label="Under the hood" className="mt-10">
+            <h2 className="mb-4 font-mono text-xs uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-400">
+              under the hood
+            </h2>
+            <div className="divide-y rounded-lg border">
+              {cs.internals.map((s, i) => (
+                <div key={s.title} className="grid gap-2 p-5 md:grid-cols-[14rem_1fr] md:gap-6">
+                  <h3 className="font-semibold tracking-tight">
+                    <span aria-hidden="true" className="mr-2 font-mono text-xs text-emerald-500">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    {s.title}
+                  </h3>
+                  <p className="text-muted-foreground">{s.body}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {cs.gallery && cs.gallery.length > 0 && (
+          <section aria-label="Screenshots" className="mt-10">
+            <h2 className="mb-4 font-mono text-xs uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-400">
+              screenshots
+            </h2>
+            <div className="space-y-8">
+              {cs.gallery.map((g) => (
+                <figure key={g.caption}>
+                  <div className="overflow-hidden rounded-lg border">
+                    <Image
+                      src={g.image}
+                      alt={`${cs.title}: ${g.caption}`}
+                      className="w-full object-cover"
+                      sizes="(min-width: 1024px) 896px, 100vw"
+                    />
+                  </div>
+                  <figcaption className="mt-2 text-sm text-muted-foreground">{g.caption}</figcaption>
+                </figure>
+              ))}
+            </div>
+          </section>
+        )}
+
         <section aria-label="Stack" className="mt-10">
           <h2 className="mb-4 font-mono text-xs uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-400">
             stack
@@ -136,12 +182,14 @@ export default async function CaseStudyPage({
         </section>
 
         <div className="mt-12 flex flex-wrap gap-3 border-t pt-8">
-          <Button asChild>
-            <a href={cs.demo} target="_blank" rel="noreferrer">
-              <ExternalLink className="mr-2 h-4 w-4" />
-              Visit Live Site
-            </a>
-          </Button>
+          {cs.demo && (
+            <Button asChild>
+              <a href={cs.demo} target="_blank" rel="noreferrer">
+                <ExternalLink className="mr-2 h-4 w-4" />
+                Visit Live Site
+              </a>
+            </Button>
+          )}
           <Button asChild variant="outline">
             <Link href="/#contact">Start a project like this</Link>
           </Button>

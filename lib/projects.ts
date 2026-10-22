@@ -5,6 +5,10 @@ import dondaxpicture from "@/public/dondaxpicture.png"
 import lawangelsscreenshot from "@/public/lawangelsscreenshot.png"
 import latiodus from "@/public/latiodus.png"
 import bcijval from "@/public/bcijval.jpg"
+import gogetter from "@/public/gogetter.jpg"
+import gogetterMessage from "@/public/gogetter-message.jpg"
+import gogetterAssistant from "@/public/gogetter-assistant.jpg"
+import gogetterEmails from "@/public/gogetter-emails.jpg"
 
 export type CaseStudy = {
   slug: string
@@ -13,7 +17,12 @@ export type CaseStudy = {
   image: StaticImageData
   tags: string[]
   status: string
-  demo: string
+  /** Public link. Leave out for private tools; the live buttons are then hidden. */
+  demo?: string
+  /** Extra screenshots shown on the case study page. */
+  gallery?: { image: StaticImageData; caption: string }[]
+  /** "Under the hood" write-up: one entry per part of the system. */
+  internals?: { title: string; body: string }[]
   problem: string
   solution: string
   features: string[]
@@ -40,6 +49,64 @@ export const caseStudies: CaseStudy[] = [
       "Project enquiry form with webhook delivery to the firm's inbox or CRM",
       "Insights, news and careers sections",
       "Typed content layer: one edit updates pages, listings and sitemap",
+    ],
+  },
+  {
+    slug: "gogetter",
+    title: "GoGetter",
+    description:
+      "An outreach tool that finds local businesses with no website across the UK, US and Canada, builds a daily call sheet, and writes a personal WhatsApp message and email for each one with AI.",
+    image: gogetter,
+    tags: ["Node.js 24", "SQLite", "Vanilla JS", "Gemini API", "Claude API", "Zod", "OpenStreetMap", "libphonenumber", "Nodemailer", "Caddy", "Oracle Cloud", "Vercel"],
+    status: "SHIPPED",
+    problem:
+      "Selling websites to small businesses starts with finding the ones that don't have one, and that meant hours of scrolling maps, copying numbers and writing the same cold message again and again. Generic pitches got ignored, and sending too much email from one account risked getting it flagged.",
+    solution:
+      "GoGetter automates the whole loop, from finding the businesses to following them up. It searches OpenStreetMap city by city across 9 countries for businesses with no website, then serves a fresh sheet of them every morning. AI writes each message around something specific to that business. Phone numbers are tagged as mobile or landline so WhatsApp goes to the right ones, and a paced mailer sends email within daily limits and follow-up rules. It runs on its own around the clock on an Oracle Cloud server, with a password-protected dashboard on Vercel that works just as well on a phone.",
+    features: [
+      "Finds businesses with no website across many cities and trades",
+      "Fresh daily sheet, with past sheets kept and searchable",
+      "AI-written WhatsApp and email messages for every business, editable before sending",
+      "Mobile/landline detection so WhatsApp is only offered where it's likely to work",
+      "Paced sending with warm-up, daily caps, follow-ups and unsubscribe handling",
+      "AI assistant that knows the day's list and drafts replies to customers",
+      "Daily sheet emailed as a digest, plus CSV export",
+      "Light, dark and blue themes, built to work on a phone",
+    ],
+    internals: [
+      {
+        title: "Lead discovery",
+        body: "Each city is geocoded once with Nominatim and cached in SQLite. GoGetter then sends one Overpass query per city: a bounding box with one regex clause per OpenStreetMap key, covering 37 categories of business, from barbers and bakeries to dentists and driving schools. That query shape is far faster than per-tag radius filters, which time out on the public servers. Anything with a website, a URL or a chain brand is filtered out, and so is anything with no phone or email. If a server is overloaded, it retries on a second mirror. Cities are searched a few at a time and re-checked every 30 days, and new searches start automatically when the pool of unused leads runs low.",
+      },
+      {
+        title: "The daily sheet",
+        body: "Every morning, a fixed number of fresh businesses moves from the pool onto the day's sheet. The mix is balanced on purpose: only as many email-ready leads as the day's sending limit can handle, then phone leads with mobiles first. That way automatic email never runs dry and WhatsApp work never piles up. Past sheets are kept and searchable, the sheet can be topped up on demand (or with pull-to-refresh on a phone), and it exports to CSV.",
+      },
+      {
+        title: "Mobile or landline",
+        body: "There's no legitimate way to check whether a number is on WhatsApp. GoGetter instead classifies every number with Google's libphonenumber numbering-plan data, tagging it mobile, landline or unknown. That decides whether to show a WhatsApp button, a 'Try WhatsApp' link or just a call link, and mobiles go to the top of the sheet.",
+      },
+      {
+        title: "AI-written outreach",
+        body: "For each business, the AI gets the OpenStreetMap details: specialty, cuisine, opening hours and area. It writes a WhatsApp message and an email that open with a compliment specific to that business, and records the facts the compliment rests on so the claim can be checked. Output is structured: a JSON schema for Gemini, and a Zod schema with structured outputs for Claude. The free tier runs on Gemini and falls back through several free models when one is overloaded or out of daily quota. With a Claude key, it also searches the web for reviews and marks a lead dead if it turns out the business already has a site. Several email styles are available, tuned for landing in the Primary inbox rather than Promotions.",
+      },
+      {
+        title: "Deliverability and compliance",
+        body: "A built-in mailer sends through any SMTP account using Nodemailer. Sending is limited to set hours, with a random gap between emails and a daily cap that can warm up a new domain by doubling each week. A follow-up is scheduled automatically and cancelled the moment a lead is marked replied, won or dead. Unsubscribes go on a permanent suppression list, and an optional footer and List-Unsubscribe header cover UK, US and Canadian anti-spam rules. A small hand-written IMAP client saves a copy of each email to the Sent folder, which many mail providers don't do for app-sent mail.",
+      },
+      {
+        title: "AI assistant",
+        body: "A chat panel loads the day's whole sheet into its context. It can say who to contact first and why, write a call opener, or draft a reply when a business asks about price. Replies render as safe, minimal Markdown with copy buttons, and the panel goes full screen on mobile.",
+      },
+      {
+        title: "Architecture and hosting",
+        body: "The backend is a single Node.js 24 process with no web framework: the built-in http module and node:sqlite, plus four small dependencies. The dashboard is plain HTML, CSS and JavaScript with light, dark and blue themes. It runs 24/7 on an Oracle Cloud server as a systemd service, behind Caddy for automatic HTTPS. The dashboard pages are served from Vercel and call the server's API with an HMAC-signed session token. One setup script provisions the server, and a background job that runs every 30 minutes builds the sheet, writes the messages, queues emails and sends a daily digest.",
+      },
+    ],
+    gallery: [
+      { image: gogetterMessage, caption: "Every business gets its own WhatsApp message and email, with the fact the compliment is based on shown for checking." },
+      { image: gogetterAssistant, caption: "The assistant knows today's list: who to contact first, what to say, and how to reply." },
+      { image: gogetterEmails, caption: "Email log: first emails and follow-ups, sent at a steady pace within the daily limit." },
     ],
   },
   {

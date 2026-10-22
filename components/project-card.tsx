@@ -47,13 +47,15 @@ export function ProjectCard({ project }: { project: CaseStudy }) {
         </div>
       </CardContent>
       <CardFooter className="flex gap-2">
-        <Button asChild variant="outline" size="sm">
-          <a href={project.demo} target="_blank" rel="noreferrer">
-            <ExternalLink className="mr-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-            Live Demo
-          </a>
-        </Button>
-        <Button asChild variant="ghost" size="sm">
+        {project.demo && (
+          <Button asChild variant="outline" size="sm">
+            <a href={project.demo} target="_blank" rel="noreferrer">
+              <ExternalLink className="mr-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              Live Demo
+            </a>
+          </Button>
+        )}
+        <Button asChild variant={project.demo ? "ghost" : "outline"} size="sm">
           <Link href={`/projects/${project.slug}`}>
             <FileText className="mr-2 h-4 w-4" />
             Case Study
