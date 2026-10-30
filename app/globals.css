@@ -261,16 +261,6 @@
   background: linear-gradient(to right, transparent, color-mix(in oklab, hsl(var(--border)) 80%, transparent), transparent);
 }
 
-/* Hero line: draws itself in once, after the hero text has settled. */
-@keyframes draw-line {
-  to { stroke-dashoffset: 0; }
-}
-.draw-line {
-  stroke-dasharray: 1 1;
-  stroke-dashoffset: 1;
-  animation: draw-line 2.8s cubic-bezier(0.45, 0.05, 0.25, 1) forwards;
-}
-
 /* ---- Storm ------------------------------------------------------------ */
 
 /* Storm overlay (lightning button) */

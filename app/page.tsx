@@ -111,7 +111,7 @@ export default function Page() {
               </p>
             </AnimateOnScroll>
 
-            <AnimateOnScroll delayMs={150} className="relative z-0 lg:col-span-6">
+            <AnimateOnScroll delayMs={150} className="relative z-[1] lg:col-span-6">
               <div className="relative pb-10 pl-8 sm:pb-14 sm:pl-16">
                 <div className="absolute left-0 top-0 w-[64%]">
                   <BrowserFrame project={back} />

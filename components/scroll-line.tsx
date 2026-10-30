@@ -1,15 +1,16 @@
 "use client"
 
-import { useEffect, useId, useRef, useState } from "react"
-import { buildShape, type Seg } from "@/lib/hero-line-geometry"
+import { useEffect, useRef, useState } from "react"
+import { buildShape, jitterRoute, seededRandom, type Seg } from "@/lib/hero-line-geometry"
+import { DrawnPath, type StrokeEdges } from "@/components/drawn-path"
 
 /**
  * A calligraphic line, like the hero's, that draws itself once when its section
- * scrolls into view. Place it as a child of a section with
+ * scrolls into view, varying slightly on every visit. Place it as a child of a section with
  * `relative isolate overflow-hidden`; it sits behind the section's content.
  *
- * Shown from tablet width up: on phones, sections are narrow and tall, so the
- * loops would stretch across the text (the hero line handles phones itself).
+ * On phones the sections are narrow, so the line runs behind the text; it is
+ * drawn a little thinner and softer there so the text stays easy to read.
  *
  * Shapes are defined on a 0–1 grid of the section's width and height, so they
  * fill the space they're given; the stroke width is computed in real pixels, so
@@ -85,8 +86,10 @@ export type ScrollLineShape = keyof typeof SHAPES
 
 export function ScrollLine({ shape, className }: { shape: ScrollLineShape; className?: string }) {
   const svgRef = useRef<SVGSVGElement | null>(null)
-  const [geo, setGeo] = useState<{ outline: string; centre: string; w: number; h: number; maxW: number } | null>(null)
-  const [state, setState] = useState<"waiting" | "drawing" | "done">("waiting")
+  const [geo, setGeo] = useState<{ edges: StrokeEdges; w: number; h: number } | null>(null)
+  const [inView, setInView] = useState(false)
+  // A slightly different line on every visit, stable while the page is open.
+  const seed = useRef(Math.floor(Math.random() * 2 ** 32))
 
   // Build the line for the section's size, and rebuild when it resizes.
   useEffect(() => {
@@ -98,8 +101,8 @@ export function ScrollLine({ shape, className }: { shape: ScrollLineShape; class
       const h = host.clientHeight
       if (!w || !h) return
       const segs: Seg[] = SHAPES[shape].map((seg) => seg.map(([x, y]) => ({ x: x * w, y: y * h })) as Seg)
-      const maxW = 6
-      setGeo({ ...buildShape(segs, 1, maxW), w, h, maxW })
+      const varied = jitterRoute(segs, seededRandom(seed.current), w * 0.02, h * 0.04)
+      setGeo({ edges: buildShape(varied, 1, w < 768 ? 4 : 6), w, h })
     }
     update()
     const ro = new ResizeObserver(update)
@@ -110,11 +113,11 @@ export function ScrollLine({ shape, className }: { shape: ScrollLineShape; class
   // Start drawing the first time a good part of the section is on screen.
   useEffect(() => {
     const host = svgRef.current?.parentElement
-    if (!host || state !== "waiting") return
+    if (!host || inView) return
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setState("drawing")
+          setInView(true)
           io.disconnect()
         }
       },
@@ -122,38 +125,17 @@ export function ScrollLine({ shape, className }: { shape: ScrollLineShape; class
     )
     io.observe(host)
     return () => io.disconnect()
-  }, [state])
-
-  // useId gives colons, which break url(#...) references.
-  const maskId = `scroll-line-${useId().replace(/:/g, "")}`
+  }, [inView])
 
   return (
     <svg
       ref={svgRef}
       aria-hidden="true"
-      className={`pointer-events-none absolute inset-0 -z-10 hidden h-full w-full text-foreground md:block ${className ?? ""}`}
+      className={`pointer-events-none absolute inset-0 -z-10 h-full w-full text-foreground opacity-60 md:opacity-100 ${className ?? ""}`}
       viewBox={geo ? `0 0 ${geo.w} ${geo.h}` : undefined}
       fill="none"
     >
-      {geo && state !== "waiting" && (
-        <>
-          <defs>
-            <mask id={maskId} maskUnits="userSpaceOnUse" x="0" y="0" width={geo.w} height={geo.h}>
-              <path
-                d={geo.centre}
-                pathLength={1}
-                stroke="white"
-                strokeWidth={geo.maxW + 6}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className={state === "drawing" ? "draw-line" : undefined}
-                onAnimationEnd={() => setState("done")}
-              />
-            </mask>
-          </defs>
-          <path d={geo.outline} fill="currentColor" mask={`url(#${maskId})`} />
-        </>
-      )}
+      <DrawnPath edges={geo?.edges ?? null} play={inView} />
     </svg>
   )
 }

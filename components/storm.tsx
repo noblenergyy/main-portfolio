@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useRef, useState } from "react"
 import { createPortal } from "react-dom"
-import { Button } from "@/components/ui/button"
 
 /** Total storm length; rain fades in over the first second and out over the last two. */
 const STORM_MS = 9000
@@ -153,22 +152,27 @@ function StormOverlay({ onDone }: { onDone: () => void }) {
   )
 }
 
-/** Header button that starts a short storm over the page. */
+/**
+ * The "storm" half of the Noverstorm wordmark in the header, as a button that
+ * starts a short storm over the page. An inverted box: black with white text in
+ * light mode, white with black text in dark mode.
+ */
 export function StormButton() {
   const [active, setActive] = useState(false)
   const stop = useCallback(() => setActive(false), [])
 
   return (
     <>
-      <Button
-        variant="outline"
+      <button
+        type="button"
         onClick={() => setActive(true)}
         disabled={active}
         title="Summon a storm"
-        className="px-4"
+        aria-label="storm (summon a storm)"
+        className="ml-[1px] bg-foreground px-1.5 py-0.5 font-heading text-xl font-semibold leading-none tracking-tight text-background transition-shadow duration-200 hover:shadow-[3px_3px_0_0_rgb(var(--accent-500))] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-default"
       >
-        Storm
-      </Button>
+        storm
+      </button>
       {/* Portal to <body>: the header's backdrop blur would otherwise trap this fixed overlay inside the header. */}
       {active && createPortal(<StormOverlay onDone={stop} />, document.body)}
     </>

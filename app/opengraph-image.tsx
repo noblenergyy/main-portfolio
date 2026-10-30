@@ -32,7 +32,8 @@ export default async function OpengraphImage() {
     publicImageDataUri("logo-mark-white.png"),
     publicImageDataUri("bcijval.jpg"),
   ])
-  const line = buildShape(heroRoute(size.width, HEADLINE, CTA), 1.4, 8)
+  // rand fixed at 0.5 means no jitter: the preview always shows the same line.
+  const line = buildShape(heroRoute(size.width, HEADLINE, CTA, () => 0.5), 1.4, 8)
 
   return new ImageResponse(
     (

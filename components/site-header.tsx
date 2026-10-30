@@ -23,10 +23,14 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/75">
       <div className="container mx-auto flex h-16 items-center justify-between gap-6 px-4">
-        <Link href="/" className="flex items-center gap-2.5" aria-label="Noverstorm home">
-          <LogoMark className="h-7" priority />
-          <span className="font-heading text-[15px] font-semibold tracking-tight">Noverstorm</span>
-        </Link>
+        {/* Wordmark: "Nover" links home; "storm" is its own button that starts a storm. */}
+        <div className="flex items-center">
+          <Link href="/" className="flex items-center gap-3" aria-label="Noverstorm home">
+            <LogoMark className="h-9" priority />
+            <span className="font-heading text-xl font-semibold leading-none tracking-tight">Nover</span>
+          </Link>
+          <StormButton />
+        </div>
 
         <nav aria-label="Main" className="hidden items-center gap-8 text-sm md:flex">
           {NAV.map((item) => (
@@ -45,7 +49,6 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <StormButton />
           <ThemeToggle />
           <Button asChild size="sm" className="hidden sm:inline-flex">
             <Link href="/brief">Start a project</Link>
