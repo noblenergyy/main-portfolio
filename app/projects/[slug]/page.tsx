@@ -1,8 +1,10 @@
 import type { Metadata } from "next"
+import { SiteHeader } from "@/components/site-header"
+import { SiteFooter } from "@/components/site-footer"
 import Link from "next/link"
 import Image from "next/image"
 import { notFound } from "next/navigation"
-import { ArrowLeft, ExternalLink } from "lucide-react"
+import { ExternalLink } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { caseStudies } from "@/lib/projects"
@@ -50,31 +52,23 @@ export default async function CaseStudyPage({
 
   return (
     <div className="min-h-dvh bg-background text-foreground">
-      <header className="sticky top-0 z-40 border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container mx-auto flex h-16 items-center justify-between px-4">
-          <Link href="/" className="flex items-center gap-2 text-sm hover:text-foreground">
-            <ArrowLeft className="h-4 w-4" />
-            back to noverstorm
-          </Link>
-          {cs.demo && (
-            <Button asChild size="sm" variant="outline">
-              <a href={cs.demo} target="_blank" rel="noreferrer">
-                <ExternalLink className="mr-2 h-4 w-4" />
-                Live Site
-              </a>
-            </Button>
-          )}
-        </div>
-      </header>
+      <SiteHeader />
 
       <main className="container mx-auto max-w-4xl px-4 py-12 md:py-16">
-        <p className="mb-2 font-mono text-xs uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-400">
-          case study
-        </p>
+        <nav aria-label="Breadcrumb" className="mb-8 text-sm text-muted-foreground">
+          <Link href="/work" className="hover:text-foreground">
+            Work
+          </Link>
+          <span aria-hidden="true" className="mx-2">
+            /
+          </span>
+          <span className="text-foreground">{cs.title}</span>
+        </nav>
+        <p className="eyebrow mb-6">Case study</p>
         <div className="mb-3 flex flex-wrap items-center gap-3">
-          <h1 className="text-4xl font-bold tracking-tight md:text-5xl">{cs.title}</h1>
-          <span className="border border-emerald-500/40 px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400">
-            {cs.status}
+          <h1 className="text-4xl font-semibold tracking-tight md:text-5xl">{cs.title}</h1>
+          <span className="border px-2 py-0.5 text-[11px] font-medium uppercase tracking-[0.14em]">
+            {cs.status === "IN PROGRESS" ? "In progress" : "Live"}
           </span>
         </div>
         <p className="mb-8 max-w-2xl text-lg text-muted-foreground">{cs.description}</p>
@@ -91,13 +85,13 @@ export default async function CaseStudyPage({
 
         <div className="grid gap-10 md:grid-cols-2">
           <section aria-label="The problem">
-            <h2 className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-400">
+            <h2 className="eyebrow mb-6">
               the problem
             </h2>
             <p className="text-muted-foreground">{cs.problem}</p>
           </section>
           <section aria-label="The solution">
-            <h2 className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-400">
+            <h2 className="eyebrow mb-6">
               the solution
             </h2>
             <p className="text-muted-foreground">{cs.solution}</p>
@@ -105,15 +99,13 @@ export default async function CaseStudyPage({
         </div>
 
         <section aria-label="Key features" className="mt-10">
-          <h2 className="mb-4 font-mono text-xs uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-400">
+          <h2 className="eyebrow mb-6">
             key features
           </h2>
           <ul className="grid gap-3 sm:grid-cols-2">
             {cs.features.map((f) => (
               <li key={f} className="flex items-start gap-2 text-muted-foreground">
-                <span aria-hidden="true" className="mt-0.5 font-mono text-emerald-500">
-                  &gt;
-                </span>
+                <span aria-hidden="true" className="mt-2.5 h-1.5 w-1.5 shrink-0 bg-foreground" />
                 {f}
               </li>
             ))}
@@ -122,14 +114,14 @@ export default async function CaseStudyPage({
 
         {cs.internals && cs.internals.length > 0 && (
           <section aria-label="Under the hood" className="mt-10">
-            <h2 className="mb-4 font-mono text-xs uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-400">
+            <h2 className="eyebrow mb-6">
               under the hood
             </h2>
             <div className="divide-y rounded-lg border">
               {cs.internals.map((s, i) => (
                 <div key={s.title} className="grid gap-2 p-5 md:grid-cols-[14rem_1fr] md:gap-6">
                   <h3 className="font-semibold tracking-tight">
-                    <span aria-hidden="true" className="mr-2 font-mono text-xs text-emerald-500">
+                    <span aria-hidden="true" className="mr-2 text-xs tabular-nums text-muted-foreground">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     {s.title}
@@ -143,7 +135,7 @@ export default async function CaseStudyPage({
 
         {cs.gallery && cs.gallery.length > 0 && (
           <section aria-label="Screenshots" className="mt-10">
-            <h2 className="mb-4 font-mono text-xs uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-400">
+            <h2 className="eyebrow mb-6">
               screenshots
             </h2>
             <div className="space-y-8">
@@ -165,7 +157,7 @@ export default async function CaseStudyPage({
         )}
 
         <section aria-label="Stack" className="mt-10">
-          <h2 className="mb-4 font-mono text-xs uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-400">
+          <h2 className="eyebrow mb-6">
             stack
           </h2>
           <div className="flex flex-wrap gap-2">
@@ -173,7 +165,7 @@ export default async function CaseStudyPage({
               <Badge
                 key={t}
                 variant="secondary"
-                className="border bg-emerald-600/10 text-emerald-800 dark:text-emerald-300 border-emerald-600/20"
+                className="bg-transparent font-normal"
               >
                 {t}
               </Badge>
@@ -191,10 +183,11 @@ export default async function CaseStudyPage({
             </Button>
           )}
           <Button asChild variant="outline">
-            <Link href="/#contact">Start a project like this</Link>
+            <Link href="/brief">Start a project like this</Link>
           </Button>
         </div>
       </main>
+      <SiteFooter />
     </div>
   )
 }

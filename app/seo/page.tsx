@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
+import { SiteHeader } from "@/components/site-header"
+import { SiteFooter } from "@/components/site-footer"
 import Link from "next/link"
-import { ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { SITE_NAME, SITE_URL } from "@/lib/site"
@@ -97,44 +98,34 @@ export default function SeoPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify([serviceSchema, faqSchema]) }}
       />
-      <header className="sticky top-0 z-40 border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container mx-auto flex h-16 items-center justify-between px-4">
-          <Link href="/" className="flex items-center gap-2 text-sm hover:text-foreground">
-            <ArrowLeft className="h-4 w-4" />
-            back to noverstorm
-          </Link>
-          <Button asChild size="sm">
-            <Link href="/#contact">Get an audit</Link>
-          </Button>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main className="container mx-auto max-w-5xl px-4 py-12 md:py-16">
-        <p className="mb-2 font-mono text-xs uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-400">
-          services // seo
+        <p className="eyebrow mb-6">
+          Services · SEO
         </p>
-        <h1 className="max-w-3xl text-4xl font-bold tracking-tight md:text-5xl">
+        <h1 className="max-w-3xl text-4xl font-semibold tracking-tight md:text-5xl">
           Get found by the people already searching for you.
         </h1>
         <p className="mt-4 max-w-2xl text-lg text-muted-foreground">{DESCRIPTION}</p>
         <div className="mt-8 flex flex-wrap gap-3">
           <Button asChild size="lg">
-            <Link href="/#contact">Request an SEO audit</Link>
+            <Link href="/brief">Request an SEO audit</Link>
           </Button>
           <Button asChild size="lg" variant="outline">
-            <Link href="/#projects">See sites we&apos;ve built</Link>
+            <Link href="/work">See sites we&apos;ve built</Link>
           </Button>
         </div>
 
         <section aria-label="What's included" className="mt-16">
-          <h2 className="mb-6 font-mono text-xs uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-400">
-            what&apos;s included
+          <h2 className="eyebrow mb-6">
+            What&apos;s included
           </h2>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {offerings.map((o) => (
-              <Card key={o.title} className="h-full transition-colors hover:border-emerald-600/40">
+              <Card key={o.title} className="h-full shadow-none">
                 <CardContent className="flex h-full flex-col p-6">
-                  <p className="font-mono text-xs tracking-[0.15em] text-emerald-600 dark:text-emerald-400">
+                  <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
                     {o.tag}
                   </p>
                   <h3 className="mt-4 font-semibold tracking-tight">{o.title}</h3>
@@ -146,13 +137,13 @@ export default function SeoPage() {
         </section>
 
         <section aria-label="How it works" className="mt-16">
-          <h2 className="mb-6 font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground">
-            how it works
+          <h2 className="eyebrow mb-6">
+            How it works
           </h2>
           <div className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
             {steps.map((step) => (
-              <div key={step.n} className="border-t-2 border-emerald-500/40 pt-4">
-                <p className="font-mono text-xs tracking-[0.2em] text-emerald-600 dark:text-emerald-400">
+              <div key={step.n} className="border-t-2 border-foreground pt-4">
+                <p className="text-xs tabular-nums text-muted-foreground">
                   {step.n}
                 </p>
                 <h3 className="mt-2 font-semibold tracking-tight">{step.title}</h3>
@@ -163,8 +154,8 @@ export default function SeoPage() {
         </section>
 
         <section aria-label="Frequently asked questions" className="mt-16">
-          <h2 className="mb-6 font-mono text-xs uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-400">
-            faq
+          <h2 className="eyebrow mb-6">
+            Questions
           </h2>
           <div className="divide-y border-y">
             {faqs.map((f) => (
@@ -173,7 +164,7 @@ export default function SeoPage() {
                   {f.q}
                   <span
                     aria-hidden="true"
-                    className="font-mono text-emerald-500 transition-transform group-open:rotate-45"
+                    className="text-muted-foreground transition-transform group-open:rotate-45"
                   >
                     +
                   </span>
@@ -186,7 +177,7 @@ export default function SeoPage() {
 
         <div className="mt-12 flex flex-col gap-4 border-t pt-8 sm:flex-row sm:items-center sm:gap-8">
           <Button asChild size="lg" className="sm:shrink-0">
-            <Link href="/#contact">Start with an audit</Link>
+            <Link href="/brief">Start with an audit</Link>
           </Button>
           <p className="max-w-md text-sm text-muted-foreground">
             Tell us your site and what you want to rank for. We&apos;ll come back with
@@ -194,6 +185,7 @@ export default function SeoPage() {
           </p>
         </div>
       </main>
+      <SiteFooter />
     </div>
   )
 }

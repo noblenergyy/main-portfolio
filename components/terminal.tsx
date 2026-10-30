@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useRef, useState } from "react"
 import { useTheme } from "next-themes"
-import { TerminalSquare, X } from "lucide-react"
 import { isStarsEnabled, setStarsEnabled } from "@/components/starfield"
 import { ACCENTS, setAccent, type AccentId } from "@/components/accent-picker"
 import { WindowControls } from "@/components/window-controls"
@@ -31,7 +30,6 @@ const HELP: string[] = [
   "available commands:",
   "  help              show this list",
   "  whoami            about Noverstorm",
-  "  founder           who runs this studio",
   "  projects          list featured projects",
   "  open <name>       open a project or profile (e.g. open papertrail)",
   "  skills            list the stack",
@@ -89,16 +87,6 @@ export function Terminal() {
             "software development studio · remote, worldwide",
             "React, Next.js, TypeScript on the front. Node.js, Django, PostgreSQL behind.",
             "status: available for new projects",
-            "",
-            "try: founder",
-          )
-          break
-        case "founder":
-          out(
-            "noble <dev/>",
-            "founder, Noverstorm Tech Solutions",
-            "Leads the team across architecture, build and deployment.",
-            "github.com/noblenergyy",
           )
           break
         case "projects":
@@ -175,7 +163,7 @@ export function Terminal() {
           if (arg.includes("hire-us") || arg.includes("hire-noverstorm") || arg.includes("hire-noble")) {
             ok("[sudo] password for guest: ********", "ACCESS GRANTED.", "redirecting to contact form...")
             window.setTimeout(() => {
-              document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
+              window.location.href = "/contact"
             }, 900)
           } else {
             err("guest is not in the sudoers file. this incident will be reported.")
@@ -277,15 +265,7 @@ export function Terminal() {
 
   return (
     <>
-      <button
-        type="button"
-        aria-label={open ? "Close terminal" : "Open terminal"}
-        onClick={() => setOpen((o) => !o)}
-        className="fixed bottom-5 right-5 z-50 flex h-11 w-11 items-center justify-center border border-emerald-500/50 bg-background text-emerald-600 transition-colors hover:bg-emerald-500/10 dark:text-emerald-400"
-      >
-        {open ? <X className="h-5 w-5" /> : <TerminalSquare className="h-5 w-5" />}
-      </button>
-
+      {/* No on-screen launcher: the terminal is a hidden extra, opened with the backtick key. */}
       {open && (
         <div
           role="dialog"

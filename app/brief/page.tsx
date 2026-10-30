@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
-import Link from "next/link"
-import { ArrowLeft } from "lucide-react"
+import { SiteHeader } from "@/components/site-header"
+import { SiteFooter } from "@/components/site-footer"
 import { ProjectBriefForm } from "@/components/project-brief-form"
 import { SITE_NAME } from "@/lib/site"
 
@@ -30,20 +30,13 @@ export const metadata: Metadata = {
 export default function BriefPage() {
   return (
     <div className="min-h-dvh bg-background text-foreground">
-      <header className="sticky top-0 z-40 border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container mx-auto flex h-16 items-center px-4">
-          <Link href="/" className="flex items-center gap-2 text-sm hover:text-foreground">
-            <ArrowLeft className="h-4 w-4" />
-            back to noverstorm
-          </Link>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main className="container mx-auto max-w-3xl px-4 py-12 md:py-16">
-        <p className="mb-2 font-mono text-xs uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-400">
-          start a project
+        <p className="eyebrow mb-6">
+          Start a project
         </p>
-        <h1 className="text-4xl font-bold tracking-tight md:text-5xl">Tell us about your website</h1>
+        <h1 className="text-4xl font-semibold tracking-tight md:text-5xl">Tell us about your website</h1>
         <p className="mt-4 max-w-2xl text-lg text-muted-foreground">
           Six short steps, about 5 minutes. No technical knowledge needed: if you&apos;re unsure
           about anything, pick &ldquo;Not sure&rdquo; or skip it and we&apos;ll talk it through.
@@ -54,6 +47,7 @@ export default function BriefPage() {
           <ProjectBriefForm />
         </div>
       </main>
+      <SiteFooter />
     </div>
   )
 }

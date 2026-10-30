@@ -1,333 +1,281 @@
-"use client"
-
-import { Github, Mail, Phone } from 'lucide-react'
+import Image from "next/image"
 import Link from "next/link"
+import { ArrowRight, ArrowUpRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
-import { useEffect } from "react"
 import { AnimateOnScroll } from "@/components/animate-on-scroll"
-import { caseStudies } from "@/lib/projects"
-import { ThemeToggle } from "@/components/theme-toggle"
-import { ContactForm } from "@/components/contact-form"
+import { SiteHeader } from "@/components/site-header"
+import { SiteFooter } from "@/components/site-footer"
+import { SectionHeading, CtaBand, ColumnLines, Index } from "@/components/page-parts"
+import { ClientStrip, Testimonials } from "@/components/trust"
 import { ProjectCard } from "@/components/project-card"
-import { FunEffects } from "@/components/fun-effects"
-import { AboutSection } from "@/components/about-section"
-import { SkillsGrid } from "@/components/skills-grid"
-import { Marquee } from "@/components/marquee"
 import { Terminal } from "@/components/terminal"
-import { ServicesSection } from "@/components/services-section"
-import { SeoSection } from "@/components/seo-section"
-import { Starfield } from "@/components/starfield"
-import { AccentPicker } from "@/components/accent-picker"
-import { LogoMark, LogoFull } from "@/components/logo"
+import { caseStudies } from "@/lib/projects"
+import { services, processSteps } from "@/lib/services"
+import { COMPANY } from "@/lib/site"
+
+const shipped = caseStudies.filter((c) => c.status === "SHIPPED").length
+
+const figures = [
+  { value: String(shipped), label: "Projects shipped to production" },
+  { value: "End to end", label: "Design, development, launch and support" },
+  { value: "Worldwide", label: "Remote-first, working across time zones" },
+  { value: "1–2 days", label: "Typical reply to a new enquiry" },
+]
+
+const principles = [
+  {
+    title: "No middlemen",
+    body: "You talk directly to the studio designing and building your product. No account managers, no hand-offs, nothing lost in translation.",
+  },
+  {
+    title: "Clear scope, clear price",
+    body: `Every engagement starts with a written proposal and agreed milestones, contracted and invoiced through ${COMPANY.legalName}.`,
+  },
+  {
+    title: "Built to last",
+    body: "Modern, well-documented code on a proven stack, handed over properly so your site or platform keeps working long after launch.",
+  },
+]
+
+// Hero showcase: the two most recent client sites, framed like browser windows.
+const front = caseStudies.find((c) => c.slug === "b-cijval-engineering") ?? caseStudies[0]
+const back = caseStudies.find((c) => c.slug === "the-hague-industries") ?? caseStudies[1]
+
+function BrowserFrame({ project, priority }: { project: (typeof caseStudies)[number]; priority?: boolean }) {
+  const host = project.demo ? new URL(project.demo).host.replace(/^www\./, "") : project.slug
+  return (
+    <div className="border bg-card shadow-[0_30px_80px_-30px_rgb(0_0_0/0.45)]">
+      <div className="flex items-center gap-3 border-b px-3 py-2">
+        <span aria-hidden="true" className="flex gap-1.5">
+          <span className="h-2 w-2 bg-foreground/15" />
+          <span className="h-2 w-2 bg-foreground/15" />
+          <span className="h-2 w-2 bg-foreground/15" />
+        </span>
+        <span className="truncate text-[11px] text-muted-foreground">{host}</span>
+      </div>
+      <div className="relative aspect-[16/10] overflow-hidden">
+        <Image
+          src={project.image}
+          alt={`${project.title} website`}
+          fill
+          priority={priority}
+          className="object-cover object-top"
+          sizes="(min-width: 1024px) 40vw, 90vw"
+        />
+      </div>
+    </div>
+  )
+}
 
 export default function Page() {
-  useEffect(() => {
-    const click = (e: MouseEvent) => {
-      const target = e.target as HTMLElement
-      if (target && target.closest("a[href^='#']")) {
-        const anchor = target.closest("a") as HTMLAnchorElement
-        const id = anchor.getAttribute("href")?.replace("#", "") || ""
-        const el = document.getElementById(id)
-        if (el) {
-          e.preventDefault()
-          el.scrollIntoView({ behavior: "smooth", block: "start" })
-        }
-      }
-    }
-    document.addEventListener("click", click)
-    return () => document.removeEventListener("click", click)
-  }, [])
-
   return (
-    <div className="min-h-dvh text-foreground">
-      <FunEffects />
+    <div className="min-h-dvh bg-background text-foreground">
       <Terminal />
-      <div
-        aria-hidden="true"
-        className="hero-glow pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_rgb(var(--accent-500)/0.1),_transparent_60%)] dark:bg-[radial-gradient(ellipse_at_top,_rgb(var(--accent-500)/0.16),_transparent_50%)]"
-      />
-      <div aria-hidden="true" className="bg-grid-overlay pointer-events-none fixed inset-0 -z-10" />
-      <div aria-hidden="true" className="scanlines-overlay pointer-events-none fixed inset-0 -z-10" />
-      <header className="sticky top-0 z-40 border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container mx-auto flex h-16 items-center justify-between px-4">
-          <Link href="#" className="flex items-center gap-2.5">
-            <LogoMark className="h-7" priority />
-            <span className="glitch-hover font-semibold tracking-tight">
-              NOVERSTORM<span className="text-emerald-500">.</span>
-            </span>
-          </Link>
-          <nav className="hidden items-center gap-6 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground md:flex">
-            <Link href="#about" className="transition-colors hover:text-emerald-600 dark:hover:text-emerald-400">
-              about
-            </Link>
-            <Link href="#projects" className="transition-colors hover:text-emerald-600 dark:hover:text-emerald-400">
-              projects
-            </Link>
-            <Link href="#skills" className="transition-colors hover:text-emerald-600 dark:hover:text-emerald-400">
-              skills
-            </Link>
-            <Link href="#services" className="transition-colors hover:text-emerald-600 dark:hover:text-emerald-400">
-              services
-            </Link>
-            <Link href="#seo" className="transition-colors hover:text-emerald-600 dark:hover:text-emerald-400">
-              seo
-            </Link>
-            <Link href="#contact" className="transition-colors hover:text-emerald-600 dark:hover:text-emerald-400">
-              contact
-            </Link>
-          </nav>
-          <div className="flex items-center gap-2">
-            <Button asChild variant="ghost" size="icon" aria-label="GitHub">
-              <a href="https://github.com/noblenergyy" target="_blank" rel="noreferrer">
-                <Github className="h-5 w-5" />
-              </a>
-            </Button>
-            <AccentPicker />
-            <ThemeToggle />
-          </div>
-        </div>
-      </header>
+      <SiteHeader />
 
-      <main role="main">
+      <main>
         {/* Hero */}
-        <section
-          aria-label="Hero"
-          className="relative flex min-h-[calc(100svh-4rem)] items-center overflow-hidden border-b"
-        >
-          <Starfield />
-          <div className="container relative z-10 mx-auto flex w-full flex-col items-center px-4 py-12 text-center sm:py-16">
-            <AnimateOnScroll className="flex flex-col items-center space-y-5">
-              <LogoMark className="h-16 sm:h-20 md:h-24" priority />
-              <p className="bg-foreground px-4 py-2 font-mono text-xs uppercase tracking-[0.3em] text-background">
-                Available for new projects
-              </p>
-              <h1 className="glitch-hover cursor-default whitespace-nowrap text-[clamp(2rem,9vw,6.5rem)] font-bold leading-none tracking-tighter dark:font-semibold">
-                NOVER
-                <span className="bg-gradient-to-br from-foreground via-foreground to-neutral-400 bg-clip-text text-transparent">
-                  STORM
-                </span>
-                <span className="text-emerald-500">.</span>
+        <section aria-label="Introduction" className="relative overflow-hidden border-b">
+          <ColumnLines />
+          <div className="container relative mx-auto grid gap-16 px-4 pb-20 pt-16 md:pb-28 md:pt-24 lg:grid-cols-12 lg:items-center">
+            <AnimateOnScroll className="lg:col-span-6">
+              <p className="eyebrow">Software development studio</p>
+              <h1 className="mt-7 text-[clamp(2.75rem,6.2vw,5.25rem)] font-semibold leading-[0.98] tracking-[-0.035em] text-balance">
+                We design and build software that businesses <em>run on.</em>
               </h1>
-              <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground sm:text-sm">
-                Tech Solutions · Software Development Studio
+              <p className="mt-7 max-w-xl text-lg text-muted-foreground text-pretty">
+                Fast, credible websites, web platforms and integrations for companies that need
+                them to work, from the first conversation to launch and beyond.
               </p>
-              <p className="max-w-xl text-balance text-muted-foreground">
-                We build digital products at the intersection of commerce, technology,
-                and scale: modern web apps with React, Next.js, and clean backend
-                architecture, shipped production-ready.
-              </p>
-              <div className="flex flex-wrap justify-center gap-4 sm:gap-5">
+              <div className="mt-10 flex flex-wrap gap-3">
                 <Button asChild size="lg">
-                  <a href="#projects">View Projects</a>
+                  <Link href="/brief">
+                    Start a project
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
                 </Button>
                 <Button asChild size="lg" variant="outline">
-                  <a href="#contact">
-                    <Mail className="mr-2 h-4 w-4" />
-                    Contact Us
-                  </a>
+                  <Link href="/work">View our work</Link>
                 </Button>
               </div>
-              <p className="pt-2 font-mono text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
-                Founded by noble <span className="text-emerald-500">{"<dev/>"}</span>
+              <p className="mt-10 flex items-center gap-3 text-sm text-muted-foreground">
+                <span aria-hidden="true" className="relative flex h-2 w-2">
+                  <span className="absolute inset-0 animate-ping bg-emerald-500 opacity-60" />
+                  <span className="relative h-2 w-2 bg-emerald-500" />
+                </span>
+                Now booking projects for the coming months
               </p>
-              <div className="flex items-center gap-3">
-                <Button asChild variant="ghost" size="icon" aria-label="Email">
-                  <a href="mailto:hello.noverstorm@gmail.com">
-                    <Mail className="h-5 w-5" />
-                  </a>
-                </Button>
-                <Button asChild variant="ghost" size="icon" aria-label="Phone">
-                  <a href="tel:+2349130129226">
-                    <Phone className="h-5 w-5" />
-                  </a>
-                </Button>
+            </AnimateOnScroll>
+
+            <AnimateOnScroll delayMs={150} className="lg:col-span-6">
+              <div className="relative pb-10 pl-8 sm:pb-14 sm:pl-16">
+                <div className="absolute left-0 top-0 w-[64%] opacity-70">
+                  <BrowserFrame project={back} />
+                </div>
+                <div className="relative ml-auto mt-24 w-[78%] sm:mt-32">
+                  <BrowserFrame project={front} priority />
+                  <Link
+                    href={`/projects/${front.slug}`}
+                    className="group absolute -bottom-6 -left-6 flex items-center gap-3 border bg-background px-4 py-3 text-sm shadow-lg sm:-left-10"
+                  >
+                    <span className="text-xs uppercase tracking-[0.14em] text-muted-foreground">Latest</span>
+                    <span className="font-medium">{front.title}</span>
+                    <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                  </Link>
+                </div>
               </div>
             </AnimateOnScroll>
           </div>
         </section>
 
-        {/* Skills marquee */}
-        <Marquee />
-
-        <Separator className="fade-divider" />
-
-        {/* About */}
-        <AboutSection />
-
-        <Separator className="fade-divider" />
-
-        {/* Projects */}
-        <section
-          id="projects"
-          aria-label="Projects"
-          className="container mx-auto px-4 py-14 sm:py-16 md:py-24"
-        >
-          <div className="flex items-end justify-between gap-4 mb-8">
-            <div>
-              <p className="mb-2 font-mono text-xs uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-400">
-                02 // projects
-              </p>
-              <h2 className="text-3xl font-semibold tracking-tight">
-                Featured Projects
-              </h2>
-              <p className="text-muted-foreground">
-                Selected work we have delivered for clients.
-              </p>
-            </div>
-            <div className="hidden md:flex gap-2">
-              <Button asChild variant="outline">
-                <a href="https://github.com/noblenergyy" target="_blank" rel="noreferrer">
-                  <Github className="mr-2 h-4 w-4" />
-                  GitHub
-                </a>
-              </Button>
-            </div>
-          </div>
-          <div className="grid gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {caseStudies.map((p, i) => (
-              <AnimateOnScroll key={p.slug} delayMs={50 * i}>
-                <ProjectCard project={p} />
-              </AnimateOnScroll>
+        {/* Figures */}
+        <section aria-label="At a glance" className="border-b">
+          <dl className="container mx-auto grid grid-cols-2 px-4 lg:grid-cols-4">
+            {figures.map((f, i) => (
+              <div
+                key={f.label}
+                className={`border-foreground/10 py-10 pr-6 lg:py-12 ${i % 2 === 1 ? "pl-6" : ""} ${i > 0 ? "lg:border-l lg:pl-8" : ""} ${i % 2 === 1 ? "border-l" : ""} ${i < 2 ? "border-b lg:border-b-0" : ""}`}
+              >
+                <dt className="sr-only">{f.label}</dt>
+                <dd>
+                  <span className="block font-heading text-3xl font-semibold tracking-tight md:text-4xl">{f.value}</span>
+                  <span className="mt-2 block text-sm text-muted-foreground">{f.label}</span>
+                </dd>
+              </div>
             ))}
-          </div>
+          </dl>
         </section>
 
-        <Separator className="fade-divider" />
-
-        {/* Skills */}
-        <section
-          id="skills"
-          aria-label="Skills"
-          className="container mx-auto px-4 py-14 sm:py-16 md:py-24"
-        >
-          <AnimateOnScroll>
-            <div className="mb-6 sm:mb-8">
-              <p className="mb-2 font-mono text-xs uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-400">
-                03 // skills
-              </p>
-              <h2 className="text-3xl font-semibold tracking-tight">
-                Skills and Tools
-              </h2>
-              <p className="mt-1 text-muted-foreground">
-                The stack we use to take products from idea to production.
-              </p>
-            </div>
-            <SkillsGrid />
-          </AnimateOnScroll>
-        </section>
-
-        <Separator className="fade-divider" />
+        <ClientStrip />
 
         {/* Services */}
-        <ServicesSection />
-
-        <Separator className="fade-divider" />
-
-        {/* SEO */}
-        <SeoSection />
-
-        <Separator />
-
-        {/* Contact */}
-        <section
-          id="contact"
-          aria-label="Contact"
-          className="container mx-auto px-4 py-14 sm:py-16 md:py-24"
-        >
-          <div className="grid gap-8 sm:gap-10 md:grid-cols-2">
-            <AnimateOnScroll className="space-y-4">
-              <div>
-                <p className="mb-2 font-mono text-xs uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-400">
-                  06 // contact
-                </p>
-                <h2 className="text-3xl font-semibold tracking-tight">
-                  Let us build something great
-                </h2>
-              </div>
-              <p className="text-muted-foreground">
-                Have a project, partnership, or idea in mind? We would love to
-                hear from you, and we respond within 1 to 2 business days.
-              </p>
-              <div className="flex flex-wrap gap-3">
-                <Button asChild variant="outline">
-                  <a href="mailto:hello.noverstorm@gmail.com">
-                    <Mail className="mr-2 h-4 w-4" />
-                    hello.noverstorm@gmail.com
-                  </a>
-                </Button>
-                <Button asChild variant="ghost">
-                  <a href="https://github.com/noblenergyy" target="_blank" rel="noreferrer">
-                    <Github className="mr-2 h-4 w-4" />
-                    GitHub
-                  </a>
-                </Button>
-              </div>
-              <div className="border-l-2 border-emerald-500/40 pl-4">
-                <p className="font-medium">Planning a new website?</p>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  Answer a few easy questions about what you need. No technical
-                  knowledge required, and it helps us send an accurate quote.
-                </p>
+        <section aria-label="Services" className="border-b">
+          <div className="container mx-auto px-4 py-20 md:py-28">
+            <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+              <SectionHeading
+                eyebrow="Services"
+                title={
+                  <>
+                    Everything your business needs <em>online</em>
+                  </>
+                }
+                intro="From a company website to a full platform, we handle design, development and launch under one roof."
+              />
+              <Link href="/services" className="inline-flex shrink-0 items-center gap-2 text-sm font-medium hover:underline">
+                All services <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+            <div className="mt-14 grid border-l border-t sm:grid-cols-2 lg:grid-cols-4">
+              {services.map((s, i) => (
                 <Link
-                  href="/brief"
-                  className="mt-2 inline-block font-mono text-xs uppercase tracking-[0.2em] text-emerald-600 transition-colors hover:text-foreground dark:text-emerald-400"
+                  key={s.slug}
+                  href={s.href ?? `/services#${s.slug}`}
+                  className="group relative flex flex-col border-b border-r p-6 transition-colors hover:bg-muted/40 md:p-8"
                 >
-                  start the questionnaire &rarr;
+                  <span
+                    aria-hidden="true"
+                    className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-emerald-500 transition-transform duration-300 group-hover:scale-x-100"
+                  />
+                  <Index n={i + 1} />
+                  <h3 className="mt-10 text-lg font-semibold tracking-tight">{s.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{s.summary}</p>
+                  <span className="mt-auto inline-flex items-center gap-2 pt-8 text-sm font-medium">
+                    Learn more
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </span>
                 </Link>
-              </div>
-            </AnimateOnScroll>
-            <AnimateOnScroll>
-              <Card className="border-emerald-600/20">
-                <CardHeader>
-                  <CardTitle>Contact Form</CardTitle>
-                  <CardDescription />
-                </CardHeader>
-                <CardContent>
-                  <ContactForm />
-                </CardContent>
-              </Card>
-            </AnimateOnScroll>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Selected work */}
+        <section aria-label="Selected work" className="border-b">
+          <div className="container mx-auto px-4 py-20 md:py-28">
+            <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+              <SectionHeading
+                eyebrow="Work"
+                title={
+                  <>
+                    Selected <em>projects</em>
+                  </>
+                }
+                intro="Websites and platforms we've designed, built and launched for our clients."
+              />
+              <Link href="/work" className="inline-flex shrink-0 items-center gap-2 text-sm font-medium hover:underline">
+                All projects <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+            <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {caseStudies.slice(0, 3).map((p, i) => (
+                <AnimateOnScroll key={p.slug} delayMs={60 * i}>
+                  <ProjectCard project={p} />
+                </AnimateOnScroll>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <Testimonials />
+
+        {/* Process */}
+        <section aria-label="How we work" className="border-b">
+          <div className="container mx-auto px-4 py-20 md:py-28">
+            <SectionHeading
+              eyebrow="Process"
+              title={
+                <>
+                  How a project <em>runs</em>
+                </>
+              }
+              intro="A clear, predictable process, so you always know what's happening and what comes next."
+            />
+            <ol className="mt-14 grid border-l border-t sm:grid-cols-2 lg:grid-cols-3">
+              {processSteps.map((step, i) => (
+                <li key={step.title} className="border-b border-r p-6 md:p-8">
+                  <Index n={i + 1} />
+                  <h3 className="mt-8 font-semibold tracking-tight">{step.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{step.body}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        {/* Why Noverstorm */}
+        <section aria-label="Why Noverstorm" className="border-b">
+          <div className="container mx-auto grid gap-12 px-4 py-20 md:py-28 lg:grid-cols-12">
+            <div className="lg:col-span-4">
+              <SectionHeading
+                eyebrow="Why Noverstorm"
+                title={
+                  <>
+                    Small by <em>design</em>
+                  </>
+                }
+              />
+              <p className="mt-5 text-muted-foreground">
+                We take on a limited number of projects at a time, so each one gets senior
+                attention from start to finish.
+              </p>
+              <Link href="/about" className="mt-6 inline-flex items-center gap-2 text-sm font-medium hover:underline">
+                About the studio <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+            <div className="grid gap-px self-start border bg-border sm:grid-cols-3 lg:col-span-8">
+              {principles.map((p) => (
+                <div key={p.title} className="bg-background p-6 md:p-8">
+                  <h3 className="font-semibold tracking-tight">{p.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{p.body}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
       </main>
 
-      <footer
-        role="contentinfo"
-        className="border-t bg-muted/30 text-sm text-muted-foreground"
-      >
-        <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-4 px-4 pt-6 pb-24 md:pr-24 md:pb-6">
-          <div className="flex flex-col items-center gap-3 md:items-start">
-            <LogoFull className="h-14" />
-            <p>
-              {'©'} {new Date().getFullYear()} Noverstorm Tech Solutions Ltd. All rights reserved.
-            </p>
-          </div>
-          <div className="flex flex-col items-center gap-3 md:items-end">
-            <div className="flex items-center gap-5 font-mono text-xs uppercase tracking-[0.2em]">
-              <a href="#about" className="transition-colors hover:text-emerald-600 dark:hover:text-emerald-400">
-                about
-              </a>
-              <a href="#projects" className="transition-colors hover:text-emerald-600 dark:hover:text-emerald-400">
-                projects
-              </a>
-              <a href="#skills" className="transition-colors hover:text-emerald-600 dark:hover:text-emerald-400">
-                skills
-              </a>
-              <Link href="#seo" className="transition-colors hover:text-emerald-600 dark:hover:text-emerald-400">
-                seo
-              </Link>
-              <a href="#contact" className="transition-colors hover:text-emerald-600 dark:hover:text-emerald-400">
-                contact
-              </a>
-            </div>
-            <p className="hidden font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground/60 md:block">
-              press {'`'} to open the terminal
-            </p>
-          </div>
-        </div>
-      </footer>
+      <CtaBand />
+      <SiteFooter />
     </div>
   )
 }
