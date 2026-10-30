@@ -12,14 +12,20 @@
 }
 
 @layer components {
-  /* Small section label above headings: a short accent rule, then uppercase text. */
+  /* Small section label above headings: a raised box with a hard offset shadow,
+     so it reads as a solid block sitting on the page. */
   .eyebrow {
-    @apply flex items-center gap-3 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground;
+    @apply inline-flex w-fit items-center gap-2 border border-foreground bg-background px-2.5 py-1 text-[11px] font-semibold uppercase leading-none tracking-[0.18em] text-foreground;
+    box-shadow: 3px 3px 0 0 rgb(var(--accent-500));
   }
-  .eyebrow::before {
-    content: "";
-    @apply block h-px w-6;
-    background: rgb(var(--accent-text));
+  /* Same 3D box, for small inline labels and tags. */
+  .box-3d {
+    @apply border border-foreground bg-background;
+    box-shadow: 3px 3px 0 0 rgb(var(--accent-500));
+  }
+  .box-3d-lg {
+    @apply border border-foreground bg-background;
+    box-shadow: 6px 6px 0 0 rgb(var(--accent-500));
   }
   /* Accent words inside headings: an italic serif in the brand colour. */
   .accent-serif,

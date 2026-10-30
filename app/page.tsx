@@ -9,6 +9,7 @@ import { SectionHeading, CtaBand, ColumnLines, Index } from "@/components/page-p
 import { ClientStrip, Testimonials } from "@/components/trust"
 import { ProjectCard } from "@/components/project-card"
 import { Terminal } from "@/components/terminal"
+import { FeaturedCaseStudy, Industries, StackGrid, HomeFaq } from "@/components/home-sections"
 import { caseStudies } from "@/lib/projects"
 import { services, processSteps } from "@/lib/services"
 import { COMPANY } from "@/lib/site"
@@ -40,6 +41,8 @@ const principles = [
 // Hero showcase: the two most recent client sites, framed like browser windows.
 const front = caseStudies.find((c) => c.slug === "b-cijval-engineering") ?? caseStudies[0]
 const back = caseStudies.find((c) => c.slug === "the-hague-industries") ?? caseStudies[1]
+const featured = caseStudies.find((c) => c.slug === "gogetter")
+const selected = caseStudies.filter((c) => c !== featured).slice(0, 3)
 
 function BrowserFrame({ project, priority }: { project: (typeof caseStudies)[number]; priority?: boolean }) {
   const host = project.demo ? new URL(project.demo).host.replace(/^www\./, "") : project.slug
@@ -189,6 +192,8 @@ export default function Page() {
           </div>
         </section>
 
+        {featured && <FeaturedCaseStudy project={featured} />}
+
         {/* Selected work */}
         <section aria-label="Selected work" className="border-b">
           <div className="container mx-auto px-4 py-20 md:py-28">
@@ -207,7 +212,7 @@ export default function Page() {
               </Link>
             </div>
             <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {caseStudies.slice(0, 3).map((p, i) => (
+              {selected.map((p, i) => (
                 <AnimateOnScroll key={p.slug} delayMs={60 * i}>
                   <ProjectCard project={p} />
                 </AnimateOnScroll>
@@ -215,6 +220,8 @@ export default function Page() {
             </div>
           </div>
         </section>
+
+        <Industries />
 
         <Testimonials />
 
@@ -241,6 +248,8 @@ export default function Page() {
             </ol>
           </div>
         </section>
+
+        <StackGrid />
 
         {/* Why Noverstorm */}
         <section aria-label="Why Noverstorm" className="border-b">
@@ -272,6 +281,7 @@ export default function Page() {
             </div>
           </div>
         </section>
+        <HomeFaq />
       </main>
 
       <CtaBand />
