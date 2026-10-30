@@ -10,14 +10,14 @@ import { ClientStrip, Testimonials } from "@/components/trust"
 import { ProjectCard } from "@/components/project-card"
 import { Terminal } from "@/components/terminal"
 import { FeaturedCaseStudy, Industries, StackGrid, HomeFaq } from "@/components/home-sections"
+import { HeroLine } from "@/components/hero-line"
+import { HeroWeather } from "@/components/hero-weather"
 import { caseStudies } from "@/lib/projects"
 import { services, processSteps } from "@/lib/services"
 import { COMPANY } from "@/lib/site"
 
-const shipped = caseStudies.filter((c) => c.status === "SHIPPED").length
-
 const figures = [
-  { value: String(shipped), label: "Projects shipped to production" },
+  { value: "50+", label: "Projects delivered" },
   { value: "End to end", label: "Design, development, launch and support" },
   { value: "Worldwide", label: "Remote-first, working across time zones" },
   { value: "1–2 days", label: "Typical reply to a new enquiry" },
@@ -79,7 +79,9 @@ export default function Page() {
       <main>
         {/* Hero */}
         <section aria-label="Introduction" className="relative overflow-hidden border-b">
+          <HeroWeather />
           <ColumnLines />
+          <HeroLine />
           <div className="container relative mx-auto grid gap-16 px-4 pb-20 pt-16 md:pb-28 md:pt-24 lg:grid-cols-12 lg:items-center">
             <AnimateOnScroll className="lg:col-span-6">
               <p className="eyebrow">Software development studio</p>

@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation"
 import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { StormButton } from "@/components/storm"
 import { LogoMark } from "@/components/logo"
 import { NAV } from "@/lib/site"
 import { cn } from "@/lib/utils"
@@ -44,6 +45,7 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <StormButton />
           <ThemeToggle />
           <Button asChild size="sm" className="hidden sm:inline-flex">
             <Link href="/brief">Start a project</Link>
