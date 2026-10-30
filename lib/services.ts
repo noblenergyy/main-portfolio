@@ -85,7 +85,7 @@ export const processSteps = [
   {
     title: "Support",
     body: "Post-launch fixes and ongoing improvements. The relationship doesn't end at launch.",
-    deliverable: "Support period and optional maintenance plan",
+    deliverable: "Optional maintenance plan",
   },
 ]
 
