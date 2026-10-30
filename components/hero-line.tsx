@@ -10,43 +10,17 @@ import { useEffect, useRef, useState } from "react"
  * and tapers on straighter runs. It reveals itself once, after hydration, via a
  * mask, so the draw-in doesn't compete with page load.
  *
- * Desktop follows a hand-sketched route across the hero. On narrow screens the
- * route is computed from the headline and the "Start a project" button, so the
- * line wraps the headline and ends at the button.
+ * The route is computed from the headline and the "Start a project" button, so
+ * on every screen size the line starts in one place, wraps the headline and
+ * ends at the button.
  */
 
 type Pt = { x: number; y: number }
 /** A cubic Bézier segment: start, control 1, control 2, end. */
 type Seg = [Pt, Pt, Pt, Pt]
 
-const MOBILE_MAX = 767
-
-// Desktop route on a 1440 x 760 design canvas; scaled to the hero at runtime.
-const DESKTOP: number[][] = [
-  [-80, 400, 60, 280, 210, -30, 315, 15],
-  [315, 15, 405, 55, 310, 470, 268, 532],
-  [268, 532, 245, 568, 318, 572, 372, 508],
-  [372, 508, 520, 330, 715, 25, 818, 38],
-  [818, 38, 905, 50, 778, 425, 798, 480],
-  [798, 480, 812, 522, 868, 506, 902, 462],
-  [902, 462, 1020, 305, 1148, 162, 1232, 186],
-  [1232, 186, 1322, 212, 1288, 598, 1318, 652],
-  [1318, 652, 1340, 692, 1410, 672, 1540, 630],
-]
-
-function desktopRoute(w: number, h: number): Seg[] {
-  const sx = w / 1440
-  const sy = h / 760
-  return DESKTOP.map((n) => [
-    { x: n[0] * sx, y: n[1] * sy },
-    { x: n[2] * sx, y: n[3] * sy },
-    { x: n[4] * sx, y: n[5] * sy },
-    { x: n[6] * sx, y: n[7] * sy },
-  ])
-}
-
-/** Loop around the headline, then sweep down to finish at the CTA button. */
-function mobileRoute(w: number, title: DOMRect, cta: DOMRect, origin: DOMRect): Seg[] {
+/** One continuous line: loop around the headline, then sweep down to finish at the CTA button. */
+function route(w: number, title: DOMRect, cta: DOMRect, origin: DOMRect): Seg[] {
   const t = {
     x1: title.left - origin.left,
     y1: title.top - origin.top,
@@ -60,18 +34,23 @@ function mobileRoute(w: number, title: DOMRect, cta: DOMRect, origin: DOMRect): 
     y2: cta.bottom - origin.top,
   }
   const th = t.y2 - t.y1
-  const right = w - 6
+  // On phones the headline fills the width, so the loop hugs the screen edge.
+  // On wider screens it swings just past the headline column, staying clear of
+  // the project screenshots so the line never disappears behind anything.
+  const right = Math.min(w - 6, t.x2 + 30)
+  const tw = right - t.x1
+  const at = (f: number) => t.x1 + tw * f
   const p0 = { x: -24, y: t.y1 + th * 0.55 }
-  const p1 = { x: w * 0.42, y: t.y1 - 26 }
+  const p1 = { x: at(0.42), y: t.y1 - 26 }
   const p2 = { x: right, y: t.y1 + th * 0.45 }
-  const p3 = { x: w * 0.5, y: t.y2 + 18 }
+  const p3 = { x: at(0.5), y: t.y2 + 18 }
   // Finish touching the button's right edge, arriving from above.
   const p4 = { x: b.x2 + 2, y: (b.y1 + b.y2) / 2 }
   return [
-    [p0, { x: 4, y: t.y1 + th * 0.05 }, { x: w * 0.18, y: t.y1 - 30 }, p1],
-    [p1, { x: w * 0.72, y: t.y1 - 22 }, { x: right + 2, y: t.y1 + th * 0.05 }, p2],
-    [p2, { x: right - 2, y: t.y1 + th * 0.95 }, { x: w * 0.82, y: t.y2 + 22 }, p3],
-    [p3, { x: w * 0.12, y: t.y2 + 14 }, { x: b.x2 + 48, y: b.y1 - 24 }, p4],
+    [p0, { x: 4, y: t.y1 + th * 0.05 }, { x: at(0.16), y: t.y1 - 30 }, p1],
+    [p1, { x: at(0.72), y: t.y1 - 22 }, { x: right + 2, y: t.y1 + th * 0.05 }, p2],
+    [p2, { x: right - 2, y: t.y1 + th * 0.95 }, { x: at(0.82), y: t.y2 + 22 }, p3],
+    [p3, { x: at(0.1), y: t.y2 + 14 }, { x: b.x2 + 48, y: b.y1 - 24 }, p4],
   ]
 }
 
@@ -156,12 +135,10 @@ export function HeroLine() {
       if (w === 0) return
       const title = hero.querySelector("[data-hero-title]")
       const cta = hero.querySelector("[data-hero-cta]")
-      const mobile = w <= MOBILE_MAX && title && cta
-      const maxW = mobile ? 5 : 7
-      const route = mobile
-        ? mobileRoute(w, title.getBoundingClientRect(), cta.getBoundingClientRect(), box)
-        : desktopRoute(w, h)
-      setShape({ ...buildShape(route, 1, maxW), w, h, maxW })
+      if (!title || !cta) return
+      const maxW = w < 768 ? 5 : 7
+      const path = route(w, title.getBoundingClientRect(), cta.getBoundingClientRect(), box)
+      setShape({ ...buildShape(path, 1, maxW), w, h, maxW })
     }
 
     // Start once the hero text has finished fading in (AnimateOnScroll, 700ms):

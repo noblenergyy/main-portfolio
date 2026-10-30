@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useRef, useState } from "react"
 import { createPortal } from "react-dom"
-import { Zap } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 /** Total storm length; rain fades in over the first second and out over the last two. */
@@ -163,14 +162,12 @@ export function StormButton() {
     <>
       <Button
         variant="outline"
-        size="icon"
         onClick={() => setActive(true)}
         disabled={active}
-        aria-label="Summon a storm"
         title="Summon a storm"
-        className="group"
+        className="px-4"
       >
-        <Zap className="h-5 w-5 transition-colors group-hover:fill-current group-hover:text-emerald-500" />
+        Storm
       </Button>
       {/* Portal to <body>: the header's backdrop blur would otherwise trap this fixed overlay inside the header. */}
       {active && createPortal(<StormOverlay onDone={stop} />, document.body)}
