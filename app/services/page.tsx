@@ -4,6 +4,7 @@ import { ArrowRight, Check } from "lucide-react"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { PageHeader, SectionHeading, CtaBand, Index } from "@/components/page-parts"
+import { ScrollLine } from "@/components/scroll-line"
 import { services, processSteps, stack } from "@/lib/services"
 import { COMPANY } from "@/lib/site"
 
@@ -24,6 +25,7 @@ export default function ServicesPage() {
       <main>
         <PageHeader
           eyebrow="Services"
+          line="headerWave"
           title={
             <>
               Everything you need to get your business online and <em>growing</em>
@@ -65,7 +67,8 @@ export default function ServicesPage() {
         </section>
 
         {/* Process with deliverables */}
-        <section aria-label="Process" className="border-b">
+        <section aria-label="Process" className="relative isolate overflow-hidden border-b">
+          <ScrollLine shape="wave" />
           <div className="container mx-auto px-4 py-20 md:py-28">
             <SectionHeading
               eyebrow="Process"
@@ -97,7 +100,8 @@ export default function ServicesPage() {
         </section>
 
         {/* Technology */}
-        <section aria-label="Technology" className="border-b">
+        <section aria-label="Technology" className="relative isolate overflow-hidden border-b">
+          <ScrollLine shape="cornerRight" />
           <div className="container mx-auto px-4 py-20 md:py-28">
             <SectionHeading
               eyebrow="Technology"

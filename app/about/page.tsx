@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { PageHeader, SectionHeading, CtaBand, Index } from "@/components/page-parts"
+import { ScrollLine } from "@/components/scroll-line"
 import { ClientStrip, Testimonials } from "@/components/trust"
 import { COMPANY } from "@/lib/site"
 
@@ -91,7 +92,8 @@ export default function AboutPage() {
         </section>
 
         {/* How we work */}
-        <section aria-label="How we work" className="border-b">
+        <section aria-label="How we work" className="relative isolate overflow-hidden border-b">
+          <ScrollLine shape="cornerLeft" />
           <div className="container mx-auto grid gap-12 px-4 py-20 md:py-28 lg:grid-cols-12">
             <div className="lg:col-span-5">
               <SectionHeading

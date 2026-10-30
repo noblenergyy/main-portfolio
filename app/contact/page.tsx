@@ -31,6 +31,7 @@ export default function ContactPage() {
       <main>
         <PageHeader
           eyebrow="Contact"
+          line="headerLoop"
           title={
             <>
               Let&apos;s talk about <em>your project</em>

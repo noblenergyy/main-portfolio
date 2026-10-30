@@ -23,6 +23,7 @@ export default function WorkPage() {
       <main>
         <PageHeader
           eyebrow="Work"
+          line="headerSwirl"
           title={
             <>
               Projects we&apos;ve <em>delivered</em>
