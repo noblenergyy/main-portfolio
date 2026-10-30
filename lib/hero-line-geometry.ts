@@ -10,6 +10,32 @@ type Pt = { x: number; y: number }
 /** A cubic Bézier segment: start, control 1, control 2, end. */
 export type Seg = [Pt, Pt, Pt, Pt]
 
+// The long, hand-sketched route across the whole hero, used on laptop and desktop
+// widths. Defined on a 1440 x 760 canvas and scaled to the hero at runtime. It
+// starts off the left edge and runs in one stroke to the right edge.
+const SKETCH: number[][] = [
+  [-80, 400, 60, 280, 210, -30, 315, 15],
+  [315, 15, 405, 55, 310, 470, 268, 532],
+  [268, 532, 245, 568, 318, 572, 372, 508],
+  [372, 508, 520, 330, 715, 25, 818, 38],
+  [818, 38, 905, 50, 778, 425, 798, 480],
+  [798, 480, 812, 522, 868, 506, 902, 462],
+  [902, 462, 1020, 305, 1148, 162, 1232, 186],
+  [1232, 186, 1322, 212, 1288, 598, 1318, 652],
+  [1318, 652, 1340, 692, 1410, 672, 1540, 630],
+]
+
+export function sketchRoute(w: number, h: number): Seg[] {
+  const sx = w / 1440
+  const sy = h / 760
+  return SKETCH.map((n) => [
+    { x: n[0] * sx, y: n[1] * sy },
+    { x: n[2] * sx, y: n[3] * sy },
+    { x: n[4] * sx, y: n[5] * sy },
+    { x: n[6] * sx, y: n[7] * sy },
+  ])
+}
+
 /** A box in the line's own coordinate space. */
 export type Box = { x1: number; y1: number; x2: number; y2: number }
 

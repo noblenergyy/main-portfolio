@@ -11,6 +11,7 @@ import { ProjectCard } from "@/components/project-card"
 import { Terminal } from "@/components/terminal"
 import { FeaturedCaseStudy, Industries, StackGrid, HomeFaq } from "@/components/home-sections"
 import { HeroLine } from "@/components/hero-line"
+import { ScrollLine } from "@/components/scroll-line"
 import { caseStudies } from "@/lib/projects"
 import { services, processSteps } from "@/lib/services"
 import { COMPANY } from "@/lib/site"
@@ -77,11 +78,11 @@ export default function Page() {
 
       <main>
         {/* Hero */}
-        <section aria-label="Introduction" className="relative overflow-hidden border-b">
+        <section aria-label="Introduction" className="relative isolate overflow-hidden border-b">
           <ColumnLines />
           <HeroLine />
           <div className="container relative mx-auto grid gap-16 px-4 pb-20 pt-16 md:pb-28 md:pt-24 lg:grid-cols-12 lg:items-center">
-            <AnimateOnScroll className="lg:col-span-6">
+            <AnimateOnScroll className="relative z-[2] lg:col-span-6">
               <p className="eyebrow">Software development studio</p>
               <h1 data-hero-title className="mt-7 text-[clamp(2.75rem,6.2vw,5.25rem)] font-semibold leading-[0.98] tracking-[-0.035em] text-balance">
                 We design and build software that businesses <em>run on.</em>
@@ -110,7 +111,7 @@ export default function Page() {
               </p>
             </AnimateOnScroll>
 
-            <AnimateOnScroll delayMs={150} className="lg:col-span-6">
+            <AnimateOnScroll delayMs={150} className="relative z-0 lg:col-span-6">
               <div className="relative pb-10 pl-8 sm:pb-14 sm:pl-16">
                 <div className="absolute left-0 top-0 w-[64%]">
                   <BrowserFrame project={back} />
@@ -152,7 +153,8 @@ export default function Page() {
         <ClientStrip />
 
         {/* Services */}
-        <section aria-label="Services" className="border-b">
+        <section aria-label="Services" className="relative isolate overflow-hidden border-b">
+          <ScrollLine shape="loopRight" />
           <div className="container mx-auto px-4 py-20 md:py-28">
             <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
               <SectionHeading
@@ -226,7 +228,8 @@ export default function Page() {
         <Testimonials />
 
         {/* Process */}
-        <section aria-label="How we work" className="border-b">
+        <section aria-label="How we work" className="relative isolate overflow-hidden border-b">
+          <ScrollLine shape="wave" />
           <div className="container mx-auto px-4 py-20 md:py-28">
             <SectionHeading
               eyebrow="Process"

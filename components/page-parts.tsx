@@ -2,6 +2,7 @@ import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { ScrollLine } from "@/components/scroll-line"
 
 /**
  * Eyebrow, heading and optional intro used at the top of every section.
@@ -39,8 +40,9 @@ export function SectionHeading({
 /** Top of an interior page: a bordered band with the page title over faint column lines. */
 export function PageHeader({ eyebrow, title, intro }: { eyebrow: string; title: React.ReactNode; intro?: string }) {
   return (
-    <section className="relative overflow-hidden border-b">
+    <section className="relative isolate overflow-hidden border-b">
       <ColumnLines />
+      <ScrollLine shape="header" />
       <div className="container relative mx-auto px-4 py-20 md:py-28">
         <SectionHeading as="h1" eyebrow={eyebrow} title={title} intro={intro} className="max-w-3xl" />
       </div>

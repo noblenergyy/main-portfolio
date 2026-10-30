@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { buildShape, heroRoute, type Box } from "@/lib/hero-line-geometry"
+import { buildShape, heroRoute, sketchRoute, type Box } from "@/lib/hero-line-geometry"
 
 /**
  * Decorative calligraphic line that loops through the hero, behind the content.
@@ -11,10 +11,15 @@ import { buildShape, heroRoute, type Box } from "@/lib/hero-line-geometry"
  * and tapers on straighter runs. It reveals itself once, after hydration, via a
  * mask, so the draw-in doesn't compete with page load.
  *
- * The route is computed from the headline and the "Start a project" button, so
- * on every screen size the line starts in one place, wraps the headline and
- * ends at the button.
+ * On laptops and up it follows a long hand-sketched route across the whole hero,
+ * drawn above the project screenshots (but below the text) so no part of it is
+ * hidden and it reads as one stroke from a single start. On narrower screens the
+ * route is computed from the headline and the "Start a project" button, so the
+ * line wraps the headline and ends at the button.
  */
+
+/** Matches the hero's lg breakpoint, where the screenshots sit beside the text. */
+const WIDE_MIN = 1024
 
 export function HeroLine() {
   const svgRef = useRef<SVGSVGElement | null>(null)
@@ -34,14 +39,17 @@ export function HeroLine() {
       const title = hero.querySelector("[data-hero-title]")
       const cta = hero.querySelector("[data-hero-cta]")
       if (!title || !cta) return
-      const maxW = w < 768 ? 5 : 7
+      const wide = w >= WIDE_MIN
+      const maxW = wide ? 7 : 5
       const rel = (r: DOMRect): Box => ({
         x1: r.left - box.left,
         y1: r.top - box.top,
         x2: r.right - box.left,
         y2: r.bottom - box.top,
       })
-      const path = heroRoute(w, rel(title.getBoundingClientRect()), rel(cta.getBoundingClientRect()))
+      const path = wide
+        ? sketchRoute(w, h)
+        : heroRoute(w, rel(title.getBoundingClientRect()), rel(cta.getBoundingClientRect()))
       setShape({ ...buildShape(path, 1, maxW), w, h, maxW })
     }
 
@@ -66,7 +74,7 @@ export function HeroLine() {
     <svg
       ref={svgRef}
       aria-hidden="true"
-      className="pointer-events-none absolute inset-0 h-full w-full text-foreground"
+      className="pointer-events-none absolute inset-0 z-[1] h-full w-full text-foreground"
       viewBox={shape ? `0 0 ${shape.w} ${shape.h}` : undefined}
       fill="none"
     >

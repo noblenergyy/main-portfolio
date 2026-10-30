@@ -3,6 +3,7 @@ import Link from "next/link"
 import { ArrowRight, ArrowUpRight, Plus } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { SectionHeading, Index } from "@/components/page-parts"
+import { ScrollLine } from "@/components/scroll-line"
 import { caseStudies, type CaseStudy } from "@/lib/projects"
 import { stack } from "@/lib/services"
 
@@ -143,7 +144,8 @@ export function Industries() {
 /** The tools we build with, in a boxed grid. */
 export function StackGrid() {
   return (
-    <section aria-label="Technology" className="border-b">
+    <section aria-label="Technology" className="relative isolate overflow-hidden border-b">
+      <ScrollLine shape="cornerRight" />
       <div className="container mx-auto px-4 py-20 md:py-28">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <SectionHeading
@@ -200,7 +202,8 @@ const faqs = [
 
 export function HomeFaq() {
   return (
-    <section aria-label="Frequently asked questions" className="border-b">
+    <section aria-label="Frequently asked questions" className="relative isolate overflow-hidden border-b">
+      <ScrollLine shape="cornerLeft" />
       <div className="container mx-auto grid gap-12 px-4 py-20 md:py-28 lg:grid-cols-12">
         <div className="lg:col-span-4">
           <SectionHeading

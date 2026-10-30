@@ -1,67 +1,45 @@
 import { ImageResponse } from "next/og"
 import { publicImageDataUri } from "@/lib/og-assets"
 
-/** Brand cobalt, matching --accent-500. */
-const ACCENT = "#3d63ff"
+const BG = "#0a0a0a"
 
 /**
- * The tab and home-screen icon: the white Noverstorm tornado on a square of
- * brand cobalt. Square corners to match the site; solid colour so it reads on
- * both light and dark browser tabs.
+ * The tab and home-screen icon: the white Noverstorm tornado on a black square,
+ * matching the logo files and the site's solid buttons.
+ *
+ * At small sizes the logo's hairlines would disappear, so the mark is stamped a
+ * few times at sub-pixel offsets around a circle, which thickens every stroke
+ * without changing its shape.
  */
 export async function brandIcon(px: number) {
-  // The detailed logo's hairlines vanish at tab size, so small icons get a
-  // bolder, simplified tornado drawn with thick strokes instead.
-  if (px < 100) return smallIcon(px)
   const logo = await publicImageDataUri("logo-mark-white.png")
-  // The mark is 512 x 451; keep its proportions and leave a little breathing room.
-  const w = Math.round(px * 0.78)
+  // The mark is 512 x 451; keep its proportions with a little breathing room.
+  // Small icons let the mark fill more of the square so each line gets more pixels.
+  const w = Math.round(px * (px < 100 ? 0.9 : 0.74))
   const h = Math.round((w * 451) / 512)
+  const left = Math.round((px - w) / 2)
+  const top = Math.round((px - h) / 2)
+  // Thickening radius: noticeable at tab size, subtle on the large home-screen icon.
+  const r = px < 100 ? px / 110 : px / 180
+  const offsets = Array.from({ length: 12 }, (_, i) => {
+    const a = (i / 12) * Math.PI * 2
+    return { dx: Math.cos(a) * r, dy: Math.sin(a) * r }
+  })
+
   return new ImageResponse(
     (
-      <div
-        style={{
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: ACCENT,
-        }}
-      >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={logo} width={w} height={h} alt="" />
-      </div>
-    ),
-    { width: px, height: px },
-  )
-}
-
-/** Simplified tornado on a 64-unit grid: stacked arcs narrowing and leaning left. */
-const BANDS = [
-  { y: 15, half: 23, cx: 34 },
-  { y: 23, half: 19, cx: 33 },
-  { y: 30.5, half: 15, cx: 32 },
-  { y: 37.5, half: 11, cx: 30.5 },
-  { y: 44, half: 7.5, cx: 29 },
-  { y: 50, half: 4.5, cx: 28 },
-]
-
-function smallIcon(px: number) {
-  return new ImageResponse(
-    (
-      <div style={{ width: "100%", height: "100%", display: "flex", backgroundColor: ACCENT }}>
-        <svg width={px} height={px} viewBox="0 0 64 64" fill="none">
-          {BANDS.map((b) => (
-            <path
-              key={b.y}
-              d={`M ${b.cx - b.half} ${b.y} Q ${b.cx} ${b.y + 4.5} ${b.cx + b.half} ${b.y}`}
-              stroke="white"
-              strokeWidth={4}
-              strokeLinecap="round"
-            />
-          ))}
-        </svg>
+      <div style={{ width: "100%", height: "100%", display: "flex", position: "relative", backgroundColor: BG }}>
+        {[{ dx: 0, dy: 0 }, ...offsets].map((o, i) => (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            key={i}
+            src={logo}
+            width={w}
+            height={h}
+            alt=""
+            style={{ position: "absolute", left: left + o.dx, top: top + o.dy }}
+          />
+        ))}
       </div>
     ),
     { width: px, height: px },
