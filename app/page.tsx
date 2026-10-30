@@ -11,7 +11,6 @@ import { ProjectCard } from "@/components/project-card"
 import { Terminal } from "@/components/terminal"
 import { FeaturedCaseStudy, Industries, StackGrid, HomeFaq } from "@/components/home-sections"
 import { HeroLine } from "@/components/hero-line"
-import { HeroWeather } from "@/components/hero-weather"
 import { caseStudies } from "@/lib/projects"
 import { services, processSteps } from "@/lib/services"
 import { COMPANY } from "@/lib/site"
@@ -79,13 +78,12 @@ export default function Page() {
       <main>
         {/* Hero */}
         <section aria-label="Introduction" className="relative overflow-hidden border-b">
-          <HeroWeather />
           <ColumnLines />
           <HeroLine />
           <div className="container relative mx-auto grid gap-16 px-4 pb-20 pt-16 md:pb-28 md:pt-24 lg:grid-cols-12 lg:items-center">
             <AnimateOnScroll className="lg:col-span-6">
               <p className="eyebrow">Software development studio</p>
-              <h1 className="mt-7 text-[clamp(2.75rem,6.2vw,5.25rem)] font-semibold leading-[0.98] tracking-[-0.035em] text-balance">
+              <h1 data-hero-title className="mt-7 text-[clamp(2.75rem,6.2vw,5.25rem)] font-semibold leading-[0.98] tracking-[-0.035em] text-balance">
                 We design and build software that businesses <em>run on.</em>
               </h1>
               <p className="mt-7 max-w-xl text-lg text-muted-foreground text-pretty">
@@ -93,7 +91,7 @@ export default function Page() {
                 them to work, from the first conversation to launch and beyond.
               </p>
               <div className="mt-10 flex flex-wrap gap-3">
-                <Button asChild size="lg">
+                <Button asChild size="lg" data-hero-cta>
                   <Link href="/brief">
                     Start a project
                     <ArrowRight className="h-4 w-4" />
@@ -114,7 +112,7 @@ export default function Page() {
 
             <AnimateOnScroll delayMs={150} className="lg:col-span-6">
               <div className="relative pb-10 pl-8 sm:pb-14 sm:pl-16">
-                <div className="absolute left-0 top-0 w-[64%] opacity-70">
+                <div className="absolute left-0 top-0 w-[64%]">
                   <BrowserFrame project={back} />
                 </div>
                 <div className="relative ml-auto mt-24 w-[78%] sm:mt-32">

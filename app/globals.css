@@ -261,53 +261,17 @@
   background: linear-gradient(to right, transparent, color-mix(in oklab, hsl(var(--border)) 80%, transparent), transparent);
 }
 
-/* Hero scribble: draws itself in once on load. */
+/* Hero line: draws itself in once, after the hero text has settled. */
 @keyframes draw-line {
   to { stroke-dashoffset: 0; }
 }
 .draw-line {
-  stroke-dasharray: 1;
+  stroke-dasharray: 1 1;
   stroke-dashoffset: 1;
-  animation: draw-line 3.2s cubic-bezier(0.65, 0, 0.35, 1) 0.2s forwards;
+  animation: draw-line 2.8s cubic-bezier(0.45, 0.05, 0.25, 1) forwards;
 }
 
 /* ---- Storm ------------------------------------------------------------ */
-
-/* Ambient hero clouds: large, blurred, barely there, drifting slowly. */
-.storm-cloud {
-  position: absolute;
-  border-radius: 9999px;
-  filter: blur(60px);
-  background: radial-gradient(closest-side, rgb(var(--accent-700) / 0.22), transparent);
-  animation: cloud-drift 38s ease-in-out infinite alternate;
-}
-.dark .storm-cloud {
-  background: radial-gradient(closest-side, rgb(var(--accent-500) / 0.16), transparent);
-}
-.storm-cloud-a { width: 46rem; height: 16rem; top: -7rem; left: -8rem; }
-.storm-cloud-b { width: 38rem; height: 14rem; top: -5rem; left: 38%; animation-duration: 46s; animation-delay: -12s; }
-.storm-cloud-c { width: 30rem; height: 12rem; top: 2rem; right: -10rem; animation-duration: 52s; animation-delay: -25s; }
-@keyframes cloud-drift {
-  from { transform: translateX(-4%) scale(1); }
-  to { transform: translateX(6%) scale(1.08); }
-}
-
-/* Distant lightning: a soft glow behind the clouds that flickers once every ~14s. */
-.distant-flash {
-  position: absolute;
-  inset: -20% 0 40% 0;
-  background: radial-gradient(60% 70% at 70% 0%, rgb(var(--accent-300) / 0.35), transparent 70%);
-  opacity: 0;
-  animation: distant-flash 14s linear 3s infinite;
-}
-@keyframes distant-flash {
-  0%, 88% { opacity: 0; }
-  89% { opacity: 0.55; }
-  90% { opacity: 0.1; }
-  91.5% { opacity: 0.8; }
-  94% { opacity: 0; }
-  100% { opacity: 0; }
-}
 
 /* Storm overlay (lightning button) */
 .storm-sky {

@@ -1,5 +1,5 @@
 import type { StaticImageData } from "next/image"
-import hagueIndustries from "@/public/hague-industries.png"
+import hagueIndustries from "@/public/hague-industries.jpg"
 import papertrail from "@/public/papertrail.png"
 import dondaxpicture from "@/public/dondaxpicture.png"
 import lawangelsscreenshot from "@/public/lawangelsscreenshot.png"
