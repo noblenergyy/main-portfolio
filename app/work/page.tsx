@@ -7,7 +7,7 @@ import { ProjectCard } from "@/components/project-card"
 import { caseStudies } from "@/lib/projects"
 
 const DESCRIPTION =
-  "Websites, platforms and tools designed, built and launched by Noverstorm Tech Solutions for clients across professional services, engineering, education and more."
+  "A selection of the 50+ websites, platforms and tools Noverstorm Tech Solutions has designed, built and launched for clients across professional services, engineering, education and more."
 
 export const metadata: Metadata = {
   title: "Our Work",
@@ -26,10 +26,10 @@ export default function WorkPage() {
           line="headerSwirl"
           title={
             <>
-              Projects we&apos;ve <em>delivered</em>
+              A selection of our <em>work</em>
             </>
           }
-          intro="Each project below was scoped, designed, built and launched by Noverstorm. Open any of them for the full case study: the problem, what we built and how it works."
+          intro="A few highlights from the 50+ projects we've delivered, from corporate websites to full platforms. Open any of them for the full case study: the problem, what we built and how it works."
         />
         <ClientStrip />
         <section aria-label="Projects">
