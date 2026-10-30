@@ -264,6 +264,19 @@ export default function Page() {
                   </a>
                 </Button>
               </div>
+              <div className="border-l-2 border-emerald-500/40 pl-4">
+                <p className="font-medium">Planning a new website?</p>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Answer a few easy questions about what you need. No technical
+                  knowledge required, and it helps us send an accurate quote.
+                </p>
+                <Link
+                  href="/brief"
+                  className="mt-2 inline-block font-mono text-xs uppercase tracking-[0.2em] text-emerald-600 transition-colors hover:text-foreground dark:text-emerald-400"
+                >
+                  start the questionnaire &rarr;
+                </Link>
+              </div>
             </AnimateOnScroll>
             <AnimateOnScroll>
               <Card className="border-emerald-600/20">

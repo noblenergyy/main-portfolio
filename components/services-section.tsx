@@ -91,7 +91,7 @@ export function ServicesSection() {
       <AnimateOnScroll className="mt-14 sm:mt-16">
         <div className="flex flex-col gap-4 border-t pt-8 sm:flex-row sm:items-center sm:gap-8">
           <Button asChild size="lg" className="sm:shrink-0">
-            <a href="#contact">Start a project</a>
+            <a href="/brief">Start a project</a>
           </Button>
           <p className="max-w-md text-sm text-muted-foreground">
             Engagements are contracted through Noverstorm Tech Solutions Ltd, with a

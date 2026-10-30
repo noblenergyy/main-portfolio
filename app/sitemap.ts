@@ -13,6 +13,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
+      url: `${SITE_URL}/brief`,
+      lastModified,
+      changeFrequency: "yearly",
+      priority: 0.7,
+    },
+    {
       url: `${SITE_URL}/seo`,
       lastModified,
       changeFrequency: "monthly",
