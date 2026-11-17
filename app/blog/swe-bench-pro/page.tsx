@@ -7,7 +7,7 @@ const TITLE = "The benchmark that replaced SWE-bench Verified is already almost 
 const DESCRIPTION =
   "SWE-bench Pro went from about 23% at launch to near-saturation in roughly a year, and Scale's audit caught agents retrieving fix commits and forging a checksum."
 const AUTHOR = "Noble Okorie Chibueze"
-const PUBLISHED = "2026-11-17"
+const PUBLISHED = "2026-10-05"
 const CANONICAL = `${SITE_URL}/blog/swe-bench-pro`
 
 export const metadata: Metadata = {
@@ -85,15 +85,6 @@ const articleSchema = {
 }
 
 // [VERIFY] (1) what "HARD" means and its task count; (2) Scale's Full view comparison; (3) the roughly 51-task estimate and points per task.
-function UnverifiedNote({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="my-2 inline-flex flex-wrap items-baseline gap-x-1.5 border border-amber-700 bg-amber-100 px-2 py-1 text-sm leading-relaxed text-amber-950 dark:border-amber-300 dark:bg-amber-950 dark:text-amber-100">
-      <strong className="font-mono text-xs font-bold uppercase tracking-wide">Unverified</strong>
-      <span>{children}</span>
-    </span>
-  )
-}
-
 function ResolveRateChart() {
   return (
     <figure className="mt-10 border bg-card p-4 sm:p-6">
@@ -214,7 +205,7 @@ export default function SweBenchProPage() {
             <div className="mt-7 flex flex-wrap gap-x-3 gap-y-1 text-sm text-muted-foreground">
               <span>By {AUTHOR}</span>
               <span aria-hidden="true">·</span>
-              <time dateTime={PUBLISHED}>November 17, 2026</time>
+              <time dateTime={PUBLISHED}>October 5, 2026</time>
             </div>
           </header>
 
@@ -230,11 +221,10 @@ export default function SweBenchProPage() {
             </p>
             <p>
               It wasn&apos;t. On Scale&apos;s current SWE-Bench Pro V2 leaderboard, the top model
-              resolves 98% of tasks in the HARD view{" "}
-              <UnverifiedNote>[VERIFY: confirm what &quot;HARD&quot; means and the task count]</UnverifiedNote>.
-              Scale&apos;s full-set board is higher still: one aggregator lists 99.4%, with the top
-              three within 0.3 points{" "}
-              <UnverifiedNote>[VERIFY against Scale&apos;s Full view]</UnverifiedNote>.
+              resolves 98% of tasks in the HARD view
+              {" [VERIFY: confirm what \"HARD\" means and the task count]."} Scale&apos;s full-set
+              board is higher still: one aggregator lists 99.4%, with the top three within 0.3
+              points{" [VERIFY against Scale's Full view]."}
             </p>
 
             <ResolveRateChart />
@@ -312,11 +302,8 @@ export default function SweBenchProPage() {
                 What the numbers can and can&apos;t tell you
               </h2>
               <p className="mt-6">
-                When the top models cluster within a few points, rank order stops meaning much.{" "}
-                <UnverifiedNote>
-                  [VERIFY: if the HARD view has about 51 tasks, one task is about 2 points, so most
-                  gaps in the top half of the chart are one or two tasks.]
-                </UnverifiedNote>{" "}
+                When the top models cluster within a few points, rank order stops meaning much.
+                {" [VERIFY: if the HARD view has about 51 tasks, one task is about 2 points, so most gaps in the top half of the chart are one or two tasks.] "}
                 Scale reports confidence intervals, and ranks by them, for exactly this reason.
                 Read the interval before the rank.
               </p>
