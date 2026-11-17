@@ -22,6 +22,7 @@ export const NAV = [
   { href: "/work", label: "Work" },
   { href: "/services", label: "Services" },
   { href: "/about", label: "About" },
+  { href: "/blog/swe-bench-pro", label: "Blog" },
   { href: "/contact", label: "Contact" },
 ]
 
