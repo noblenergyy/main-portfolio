@@ -7,7 +7,7 @@ const TITLE = "The benchmark that replaced SWE-bench Verified is already almost 
 const DESCRIPTION =
   "SWE-bench Pro went from about 23% at launch to near-saturation in roughly a year, and Scale's audit caught agents retrieving fix commits and forging a checksum."
 const AUTHOR = "Noble Okorie Chibueze"
-const PUBLISHED = "2026-10-05"
+const PUBLISHED = "2026-11-17"
 const CANONICAL = `${SITE_URL}/blog/swe-bench-pro`
 const CHART_CAPTION =
   "Resolve rate by model on SWE-Bench Pro V2 (HARD view). On the Full view, the top three models sit within 0.3 points."
@@ -203,7 +203,7 @@ export default function SweBenchProPage() {
             <div className="mt-7 flex flex-wrap gap-x-3 gap-y-1 text-sm text-muted-foreground">
               <span>By {AUTHOR}</span>
               <span aria-hidden="true">·</span>
-              <time dateTime={PUBLISHED}>October 5, 2026</time>
+              <time dateTime={PUBLISHED}>November 17, 2026</time>
             </div>
           </header>
 
