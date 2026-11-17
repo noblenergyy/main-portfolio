@@ -9,6 +9,8 @@ const DESCRIPTION =
 const AUTHOR = "Noble Okorie Chibueze"
 const PUBLISHED = "2026-10-05"
 const CANONICAL = `${SITE_URL}/blog/swe-bench-pro`
+const CHART_CAPTION =
+  "Resolve rate by model on SWE-Bench Pro V2 (HARD view). On the Full view, the top three models sit within 0.3 points."
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
@@ -22,11 +24,20 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     publishedTime: PUBLISHED,
     authors: [AUTHOR],
+    images: [
+      {
+        url: "/images/swe-bench-pro-chart.png",
+        width: 1200,
+        height: 630,
+        alt: CHART_CAPTION,
+      },
+    ],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: TITLE,
     description: DESCRIPTION,
+    images: ["/images/swe-bench-pro-chart.png"],
   },
 }
 
@@ -80,7 +91,7 @@ function ResolveRateChart() {
   return (
     <figure className="mt-10 border bg-card p-4 sm:p-6">
       <div
-        aria-label="Scrollable bar chart"
+        aria-label={CHART_CAPTION}
         className="overflow-x-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-emerald-500"
         role="region"
         tabIndex={0}
@@ -93,13 +104,10 @@ function ResolveRateChart() {
           width={chart.width}
           xmlns="http://www.w3.org/2000/svg"
         >
-          <title id="resolve-chart-title">
-            Resolve rate by model on SWE-Bench Pro V2 (HARD view)
-          </title>
+          <title id="resolve-chart-title">{CHART_CAPTION}</title>
           <desc id="resolve-chart-description">
-            Vertical bar chart with a resolve-rate axis from 0 to 100 percent. Opus 5 leads at
-            98.0 percent, followed by Fable 5.1 and Gemini 4 Argon at 92.2 percent. The chart
-            includes all 18 model values in the data table below.
+            Resolve rates for all 18 models on the HARD view, with values from 0 to 100 percent.
+            The Full view&apos;s top three models sit within 0.3 points.
           </desc>
           <text
             fill="hsl(var(--muted-foreground))"
@@ -172,8 +180,7 @@ function ResolveRateChart() {
         </svg>
       </div>
       <figcaption className="mt-5 border-t pt-4 text-sm leading-relaxed text-muted-foreground">
-        Resolve rate by model on SWE-Bench Pro V2 (HARD view). The top of the board is compressed
-        against the ceiling.
+        {CHART_CAPTION}
       </figcaption>
     </figure>
   )
@@ -207,14 +214,13 @@ export default function SweBenchProPage() {
               are both public. It recommended SWE-bench Pro instead.
             </p>
             <p>
-              At Pro&apos;s launch, the best models scored around 23%, against 70%+ on Verified. That
-              looked like headroom for years.
+              At Pro&apos;s launch, Scale reported the best models scoring around 23%, against 70%+
+              on Verified. That looked like headroom for years.
             </p>
             <p>
-              It wasn&apos;t. On Scale&apos;s current SWE-Bench Pro V2 leaderboard, the top model
-              resolves 98% of tasks in the HARD view. Scale&apos;s full-set
-              board is higher still: one aggregator lists 99.4%, with the top three within 0.3
-              points.
+              It wasn&apos;t. Scale&apos;s SWE-Bench Pro V2 leaderboard has two views. On the Full
+              view, the top model resolves 99.4% of tasks and the top three sit within 0.3 points
+              of each other. On the HARD view, the top model resolves 98.0%.
             </p>
 
             <ResolveRateChart />
@@ -298,8 +304,8 @@ export default function SweBenchProPage() {
               </p>
               <p className="mt-5">
                 Disclosure: models from Anthropic hold several top positions here, and this post was
-                drafted with help from a Claude model. Every number above comes from Scale&apos;s own
-                leaderboard.
+                drafted with help from a Claude model. Benchmark figures come from Scale&apos;s
+                leaderboard. The account of OpenAI&apos;s decision comes from OpenAI&apos;s post.
               </p>
             </section>
 
@@ -341,7 +347,7 @@ export default function SweBenchProPage() {
               </h2>
               <ul className="mt-6 space-y-4 text-base leading-relaxed">
                 <li>
-                  - OpenAI, &quot;Why SWE-bench Verified no longer measures frontier coding
+                  OpenAI, &quot;Why SWE-bench Verified no longer measures frontier coding
                   capabilities&quot; (Feb 23, 2026):{" "}
                   <a
                     className="break-all text-foreground underline decoration-emerald-500 underline-offset-4 hover:text-emerald-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-emerald-500"
@@ -351,7 +357,7 @@ export default function SweBenchProPage() {
                   </a>
                 </li>
                 <li>
-                  - Epoch AI, SWE-bench Verified benchmark review:{" "}
+                  Epoch AI, SWE-bench Verified benchmark review:{" "}
                   <a
                     className="break-all text-foreground underline decoration-emerald-500 underline-offset-4 hover:text-emerald-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-emerald-500"
                     href="https://epoch.ai/benchmarks/swe-bench-verified/review"
@@ -360,7 +366,7 @@ export default function SweBenchProPage() {
                   </a>
                 </li>
                 <li>
-                  - Scale Labs, SWE-Bench Pro V2 leaderboard and update notes:{" "}
+                  Scale Labs, SWE-Bench Pro V2 leaderboard and update notes:{" "}
                   <a
                     className="break-all text-foreground underline decoration-emerald-500 underline-offset-4 hover:text-emerald-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-emerald-500"
                     href="https://labs.scale.com/leaderboard/swe_bench_pro_public_v2"
