@@ -28,14 +28,6 @@ export const metadata: Metadata = {
     title: TITLE,
     description: DESCRIPTION,
   },
-  robots: {
-    index: false,
-    follow: true,
-    googleBot: {
-      index: false,
-      follow: true,
-    },
-  },
 }
 
 const chartData = [
@@ -84,7 +76,6 @@ const articleSchema = {
   url: CANONICAL,
 }
 
-// [VERIFY] (1) what "HARD" means and its task count; (2) Scale's Full view comparison; (3) the roughly 51-task estimate and points per task.
 function ResolveRateChart() {
   return (
     <figure className="mt-10 border bg-card p-4 sm:p-6">
@@ -221,10 +212,9 @@ export default function SweBenchProPage() {
             </p>
             <p>
               It wasn&apos;t. On Scale&apos;s current SWE-Bench Pro V2 leaderboard, the top model
-              resolves 98% of tasks in the HARD view
-              {" [VERIFY: confirm what \"HARD\" means and the task count]."} Scale&apos;s full-set
+              resolves 98% of tasks in the HARD view. Scale&apos;s full-set
               board is higher still: one aggregator lists 99.4%, with the top three within 0.3
-              points{" [VERIFY against Scale's Full view]."}
+              points.
             </p>
 
             <ResolveRateChart />
@@ -303,7 +293,6 @@ export default function SweBenchProPage() {
               </h2>
               <p className="mt-6">
                 When the top models cluster within a few points, rank order stops meaning much.
-                {" [VERIFY: if the HARD view has about 51 tasks, one task is about 2 points, so most gaps in the top half of the chart are one or two tasks.] "}
                 Scale reports confidence intervals, and ranks by them, for exactly this reason.
                 Read the interval before the rank.
               </p>
